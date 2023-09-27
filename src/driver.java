@@ -172,7 +172,7 @@ public class driver {
     System.out.println("\nMasukkan matrix:");
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
-        matrix[i][j] = scanner.nextInt();
+        matrix[i][j] = scanner.nextFloat();
       }
     }
     return matrix;
@@ -194,7 +194,7 @@ public class driver {
     System.out.println("\nMasukkan matrix:");
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < m; j++) {
-        matrix[i][j] = scanner.nextInt();
+        matrix[i][j] = scanner.nextFloat();
       }
     }
     return matrix;

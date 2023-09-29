@@ -42,48 +42,42 @@ public class driver {
         scanner.nextLine();
 
         // masuk ke pilihan
-        float[][] matriks;
+        double[][] matriks = Matrix.matriksSPL(scanner);
+        scanner.nextLine();
         Thread.sleep(1000);
         switch (masukan2) {
           case 1:
-            matriks = matriksSPL();
             // fungsi gauss
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           case 2:
-            matriks = matriksSPL();
             // fungsi gauss-jordan
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           case 3:
-            matriks = matriksSPL();
             // fungsi matriks balikan
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           case 4:
-            matriks = matriksSPL();
             SPL_Cramer.cramer(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           default:
             System.out.println("Input tidak valid");
         }
+        scanner.nextLine();
       } else if (masukan == 2) {
         System.out.println(
             "\n1. Determinan dengan reduksi baris\n" +
@@ -97,7 +91,8 @@ public class driver {
 
         // masuk ke pilihan
         Thread.sleep(1000);
-        float[][] matriks = matrikspersegi();
+        double[][] matriks = Matrix.matrikspersegi(scanner);
+        scanner.nextLine();
         switch (masukan2) {
           case 1:
             // fungsi reduksi baris
@@ -105,7 +100,6 @@ public class driver {
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           case 2:
             System.out.println("\nDeterminan: " + Determinan_EK.determinant(matriks));
@@ -113,11 +107,11 @@ public class driver {
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           default:
             System.out.println("Input tidak valid");
         }
+        scanner.nextLine();
       } else if (masukan == 3) {
         System.out.println(
             "\n1. Matriks balikan dengan adjoin\n" +
@@ -131,7 +125,8 @@ public class driver {
 
         // masuk ke pilihan
         Thread.sleep(1000);
-        float[][] matriks = matrikspersegi();
+        double[][] matriks = Matrix.matrikspersegi(scanner);
+        scanner.nextLine();
         switch (masukan2) {
           case 1:
             Balikan_Adjoin.adjoin(matriks);
@@ -139,7 +134,6 @@ public class driver {
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           case 2:
             // fungsi reduksi baris
@@ -147,11 +141,11 @@ public class driver {
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
-            scanner.nextLine();
             break;
           default:
             System.out.println("Input tidak valid");
         }
+        scanner.nextLine();
       } else {
         System.out.println("Input tidak valid");
       }
@@ -159,44 +153,4 @@ public class driver {
     scanner.close();
   }
 
-  public static float[][] matrikspersegi() {
-    Scanner scanner = new Scanner(System.in);
-    // Membaca sie matrix
-    System.out.print("\nn: ");
-    int n = scanner.nextInt();
-
-    // Membuat matrix
-    float[][] matrix = new float[n][n];
-
-    // Membaca komponen matrix
-    System.out.println("\nMasukkan matrix:");
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        matrix[i][j] = scanner.nextFloat();
-      }
-    }
-    return matrix;
-  }
-
-  public static float[][] matriksSPL() {
-    Scanner scanner = new Scanner(System.in);
-
-    // Membaca size matrix
-    System.out.print("\nn: ");
-    int n = scanner.nextInt();
-    System.out.print("m: ");
-    int m = scanner.nextInt();
-
-    // membuat matrix
-    float[][] matrix = new float[n][m];
-
-    // Membaca komponen matrix
-    System.out.println("\nMasukkan matrix:");
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < m; j++) {
-        matrix[i][j] = scanner.nextFloat();
-      }
-    }
-    return matrix;
-  }
 }

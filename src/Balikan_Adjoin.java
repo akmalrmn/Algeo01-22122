@@ -1,11 +1,11 @@
 public class Balikan_Adjoin {
-  public static void adjoin(float[][] matrix) {
+  public static void adjoin(double[][] matrix) {
 
     int n = matrix.length;
-    float[][] submatrix = new float[n - 1][n - 1];
-    float[][] matrixkofaktor = new float[n][n];
-    float[][] matrixhasil = new float[n][n];
-    float det = Determinan_EK.determinant(matrix);
+    double[][] submatrix = new double[n - 1][n - 1];
+    double[][] matrixkofaktor = new double[n][n];
+    double[][] matrixhasil = new double[n][n];
+    double det = Determinan_EK.determinant(matrix);
 
     if (det != 0) {
       // kofaktor
@@ -27,7 +27,7 @@ public class Balikan_Adjoin {
           }
           // setiap elemen dibagi dengan det (determinan)
           int a = barisutama + kolomutama;
-          matrixkofaktor[barisutama][kolomutama] = (float) (Math.pow(-1, a)
+          matrixkofaktor[barisutama][kolomutama] = (double) (Math.pow(-1, a)
               * Determinan_EK.determinant(submatrix) * 1 / det);
         }
       }

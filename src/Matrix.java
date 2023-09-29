@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class Matrix {
-    public double[][] data;
-    public int numRows;
-    public int numCols;
+    public static double[][] data;
+    public static int numRows;
+    public static int numCols;
 
     public Matrix(int nRows, int nCols) {
         numRows = nRows;
@@ -22,7 +22,7 @@ public class Matrix {
     public double getElmt(int i, int j) {
         return data[i][j];
     }
-    
+
     public void setElmt(int i, int j, double value) {
         data[i][j] = value;
     }
@@ -47,37 +47,11 @@ public class Matrix {
         return data[i][i];
     }
 
-    public void copyMatrix(Matrix mIn) {
-        numRows = mIn.numRows;
-        numCols = mIn.numCols;
-        data = new double[numRows][numCols];
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                data[i][j] = mIn.data[i][j];
-            }
-        }
-    }
-
-    public void readMatrix(int nRow, int nCol) {
-        numRows = nRow;
-        numCols = nCol;
-        data = new double[numRows][numCols];
-
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                data[i][j] = scanner.nextDouble();
-            }
-        }
-
-        scanner.close();
-    }
 
     public void displayMatrix() {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                System.out.printf("%.2f",data[i][j]);
+                System.out.printf("%.2f", data[i][j]);
 
                 if (j != numCols - 1) {
                     System.out.print(" ");
@@ -89,5 +63,43 @@ public class Matrix {
             }
         }
         System.out.println();
+    }
+
+    public static double[][] matrikspersegi(Scanner scanner) {
+        // Membaca size matrix
+        System.out.print("\nn: ");
+        numRows = scanner.nextInt();
+
+        // Membuat matrix
+        double[][] data = new double[numRows][numRows];
+
+        // Membaca komponen matrix
+        System.out.println("\nMasukkan matrix:");
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numRows; j++) {
+                data[i][j] = scanner.nextDouble();
+            }
+        }
+        return data;
+    }
+
+    public static double[][] matriksSPL(Scanner scanner) {
+        // Membaca size matrix
+        System.out.print("\nn: ");
+        numRows = scanner.nextInt();
+        System.out.print("m: ");
+        numCols = scanner.nextInt();
+
+        // membuat matrix
+        data = new double[numRows][numCols];
+
+        // Membaca komponen matrix
+        System.out.println("\nMasukkan matrix:");
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                data[i][j] = scanner.nextDouble();
+            }
+        }
+        return data;
     }
 }

@@ -1,9 +1,9 @@
 public class SPL_Cramer {
-  public static void cramer(float[][] matrix) {
+  public static void cramer(double[][] matrix) {
     int jmlhbaris = matrix.length; 
     int jmlhkolom = matrix[0].length;
-    float[] hasil = new float[jmlhkolom - 1];
-    float[][] submatrix = new float[jmlhbaris][jmlhkolom - 1];
+    double[] hasil = new double[jmlhkolom - 1];
+    double[][] submatrix = new double[jmlhbaris][jmlhkolom - 1];
 
     // menghitung determinan matriks utama
     for (int i = 0; i < jmlhbaris; i++) {
@@ -12,7 +12,7 @@ public class SPL_Cramer {
       }
     }
 
-    float det = Determinan_EK.determinant(submatrix);
+    double det = Determinan_EK.determinant(submatrix);
 
     // menghitung determinan dari submatrix
     if (det != 0) {

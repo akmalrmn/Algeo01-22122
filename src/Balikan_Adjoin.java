@@ -1,10 +1,10 @@
 public class Balikan_Adjoin {
-  public static void adjoin(double[][] matrix) {
+  public static void adjoin(Matrix matrix) {
 
-    int n = matrix.length;
-    double[][] submatrix = new double[n - 1][n - 1];
-    double[][] matrixkofaktor = new double[n][n];
-    double[][] matrixhasil = new double[n][n];
+    int n = matrix.getCols();
+    Matrix submatrix = new Matrix(n - 1, n - 1);
+    Matrix matrixkofaktor = new Matrix(n, n);
+    Matrix matrixhasil = new Matrix(n, n);
     double det = Determinan_EK.determinant(matrix);
 
     if (det != 0) {
@@ -15,19 +15,19 @@ public class Balikan_Adjoin {
             for (int kolom = 0; kolom < n; kolom++) {
               // mengisi submatrix dengan elemen matrix yang tidak berada di baris dan kolom utama
               if ((baris > barisutama) && (kolom > kolomutama)) {
-                submatrix[baris - 1][kolom - 1] = matrix[baris][kolom];
+                submatrix.data[baris - 1][kolom - 1] = matrix.data[baris][kolom];
               } else if ((baris > barisutama) && (kolom < kolomutama)) {
-                submatrix[baris - 1][kolom] = matrix[baris][kolom];
+                submatrix.data[baris - 1][kolom] = matrix.data[baris][kolom];
               } else if ((baris < barisutama) && (kolom > kolomutama)) {
-                submatrix[baris][kolom - 1] = matrix[baris][kolom];
+                submatrix.data[baris][kolom - 1] = matrix.data[baris][kolom];
               } else if ((baris < barisutama) && (kolom < kolomutama)) {
-                submatrix[baris][kolom] = matrix[baris][kolom];
+                submatrix.data[baris][kolom] = matrix.data[baris][kolom];
               }
             }
           }
           // setiap elemen dibagi dengan det (determinan)
           int a = barisutama + kolomutama;
-          matrixkofaktor[barisutama][kolomutama] = (double) (Math.pow(-1, a)
+          matrixkofaktor.data[barisutama][kolomutama] = (double) (Math.pow(-1, a)
               * Determinan_EK.determinant(submatrix) * 1 / det);
         }
       }
@@ -35,19 +35,19 @@ public class Balikan_Adjoin {
       // adjoin
       int indeks = 1;
       while (indeks < n) {
-        matrixhasil[indeks - 1][indeks - 1] = matrixkofaktor[indeks - 1][indeks - 1];
-        matrixhasil[0][indeks] = matrixkofaktor[indeks][0];
-        matrixhasil[indeks][0] = matrixkofaktor[0][indeks];
-        matrixhasil[n - 1][indeks] = matrixkofaktor[indeks][n - 1];
-        matrixhasil[indeks][n - 1] = matrixkofaktor[n - 1][indeks];
+        matrixhasil.data[indeks - 1][indeks - 1] = matrixkofaktor.data[indeks - 1][indeks - 1];
+        matrixhasil.data[0][indeks] = matrixkofaktor.data[indeks][0];
+        matrixhasil.data[indeks][0] = matrixkofaktor.data[0][indeks];
+        matrixhasil.data[n - 1][indeks] = matrixkofaktor.data[indeks][n - 1];
+        matrixhasil.data[indeks][n - 1] = matrixkofaktor.data[n - 1][indeks];
         indeks += 1;
       }
     }
     // print hasil
     System.out.println();
-    for (int i = 0; i<n; i++){
-      for (int j = 0; j<n; j++){
-        System.out.print(matrixhasil[i][j] + " ");
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        System.out.print(matrixhasil.data[i][j] + " ");
       }
       System.out.println();
     }

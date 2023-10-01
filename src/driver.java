@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class driver {
   public static void main(String[] args) throws InterruptedException {
     Scanner scanner = new Scanner(System.in);
+    Matrix matriks = new Matrix(25, 25);
     while (true) {
       // tampilan menu
       Thread.sleep(1000);
@@ -42,12 +43,11 @@ public class driver {
         scanner.nextLine();
 
         // masuk ke pilihan
-        double[][] matriks = Matrix.matriksSPL(scanner);
-        scanner.nextLine();
+        matriks = matriks.matriksSPL();
         Thread.sleep(1000);
         switch (masukan2) {
           case 1:
-            // fungsi gauss
+            Gauss.performElimination(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
@@ -91,8 +91,7 @@ public class driver {
 
         // masuk ke pilihan
         Thread.sleep(1000);
-        double[][] matriks = Matrix.matrikspersegi(scanner);
-        scanner.nextLine();
+        matriks = matriks.matriksSPL();
         switch (masukan2) {
           case 1:
             // fungsi reduksi baris
@@ -125,8 +124,7 @@ public class driver {
 
         // masuk ke pilihan
         Thread.sleep(1000);
-        double[][] matriks = Matrix.matrikspersegi(scanner);
-        scanner.nextLine();
+        matriks = matriks.matrikspersegi();
         switch (masukan2) {
           case 1:
             Balikan_Adjoin.adjoin(matriks);
@@ -146,6 +144,12 @@ public class driver {
             System.out.println("Input tidak valid");
         }
         scanner.nextLine();
+      } else if (masukan == 4) {
+
+      } else if (masukan == 5) {
+
+      } else if (masukan == 6) {
+
       } else {
         System.out.println("Input tidak valid");
       }

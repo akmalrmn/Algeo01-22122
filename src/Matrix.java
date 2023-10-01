@@ -1,105 +1,108 @@
 import java.util.Scanner;
 
 public class Matrix {
-    public static double[][] data;
-    public static int numRows;
-    public static int numCols;
+    public double[][] data;
+    int numRows;
+    int numCols;
+    Scanner scanElmt = new Scanner(System.in);
 
     public Matrix(int nRows, int nCols) {
-        numRows = nRows;
-        numCols = nCols;
-        data = new double[nRows][nCols];
+        this.numRows = nRows;
+        this.numCols = nCols;
+        this.data = new double[nRows][nCols];
     }
 
     public int getRows() {
-        return numRows;
+        return this.numRows;
     }
 
     public int getCols() {
-        return numCols;
+        return this.numCols;
     }
 
     public double getElmt(int i, int j) {
-        return data[i][j];
+        return this.data[i][j];
     }
 
     public void setElmt(int i, int j, double value) {
-        data[i][j] = value;
+        this.data[i][j] = value;
     }
 
     public boolean isMatrixIdxValid(int i, int j) {
-        return (i >= 0 && i < numRows && j >= 0 && j < numCols);
+        return (i >= 0 && i < this.numRows && j >= 0 && j < this.numCols);
     }
 
     public int getLastIdxRow() {
-        return numRows - 1;
+        return this.numRows - 1;
     }
 
     public int getLastIdxCol() {
-        return numCols - 1;
+        return this.numCols - 1;
     }
 
     public boolean isIdxEff(int i, int j) {
-        return (i >= 0 && i < numRows && j >= 0 && j < numCols);
+        return (i >= 0 && i < this.numRows && j >= 0 && j < this.numCols);
     }
 
     public double getElmtDiagonal(int i) {
-        return data[i][i];
+        return this.data[i][i];
     }
 
-
     public void displayMatrix() {
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
+        for (int i = 0; i < this.numRows; i++) {
+            for (int j = 0; j < this.numCols; j++) {
                 System.out.printf("%.2f", data[i][j]);
 
-                if (j != numCols - 1) {
+                if (j != this.numCols - 1) {
                     System.out.print(" ");
                 }
             }
 
-            if (i != numRows - 1) {
+            if (i != this.numRows - 1) {
                 System.out.println();
             }
         }
         System.out.println();
     }
 
-    public static double[][] matrikspersegi(Scanner scanner) {
+    public Matrix matrikspersegi() {
         // Membaca size matrix
         System.out.print("\nn: ");
-        numRows = scanner.nextInt();
+        int baris = scanElmt.nextInt();
 
         // Membuat matrix
-        double[][] data = new double[numRows][numRows];
+        Matrix mOut = new Matrix(baris, baris);
 
         // Membaca komponen matrix
         System.out.println("\nMasukkan matrix:");
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numRows; j++) {
-                data[i][j] = scanner.nextDouble();
+        for (int i = 0; i < baris; i++) {
+            for (int j = 0; j < baris; j++) {
+                mOut.data[i][j] = scanElmt.nextDouble();
             }
         }
-        return data;
+        return mOut;
     }
 
-    public static double[][] matriksSPL(Scanner scanner) {
+    public Matrix matriksSPL() {
         // Membaca size matrix
         System.out.print("\nn: ");
-        numRows = scanner.nextInt();
+        this.numRows = scanElmt.nextInt();
         System.out.print("m: ");
-        numCols = scanner.nextInt();
+        this.numCols = scanElmt.nextInt();
 
         // membuat matrix
-        data = new double[numRows][numCols];
+        Matrix mOut = new Matrix(this.numRows, this.numCols);
 
         // Membaca komponen matrix
         System.out.println("\nMasukkan matrix:");
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                data[i][j] = scanner.nextDouble();
+        for (int i = 0; i < this.numRows; i++) {
+            for (int j = 0; j < this.numCols; j++) {
+                mOut.data[i][j] = scanElmt.nextDouble();
             }
         }
-        return data;
+        return mOut;
+    }
+
+    public void readMatrix(int i, int j) {
     }
 }

@@ -1,41 +1,41 @@
 public class SPL_Cramer {
-  public static void cramer(double[][] matrix) {
-    int jmlhbaris = matrix.length; 
-    int jmlhkolom = matrix[0].length;
+  public static void cramer(Matrix matrix) {
+    int jmlhbaris = matrix.getRows();
+    int jmlhkolom = matrix.getCols();
     double[] hasil = new double[jmlhkolom - 1];
-    double[][] submatrix = new double[jmlhbaris][jmlhkolom - 1];
+    Matrix submatrix = new Matrix(jmlhbaris, jmlhkolom - 1);
 
     // menghitung determinan matriks utama
     for (int i = 0; i < jmlhbaris; i++) {
       for (int j = 0; j < jmlhkolom - 1; j++) {
-        submatrix[i][j] = matrix[i][j];
+        submatrix.data[i][j] = matrix.data[i][j];
       }
     }
-
     double det = Determinan_EK.determinant(submatrix);
 
     // menghitung determinan dari submatrix
     if (det != 0) {
       for (int j = 0; j < jmlhkolom - 1; j++) {
+        System.out.println(j);
         // memasukkan semua elemen matrix (kecuali kolom terakhir) ke submatrix
         for (int k = 0; k < jmlhbaris; k++) {
           for (int l = 0; l < jmlhkolom - 1; l++) {
-            submatrix[k][l] = matrix[k][l];
+            submatrix.data[k][l] = matrix.data[k][l];
           }
         }
         // memasukkan 1 kolom matrix ke submatrix
         for (int i = 0; i < jmlhbaris; i++) {
-          submatrix[i][j] = matrix[i][jmlhkolom - 1];
+          submatrix.data[i][j] = matrix.data[i][jmlhkolom - 1];
         }
         hasil[j] = Determinan_EK.determinant(submatrix) / det;
       }
+      // print hasil
+      System.out.println();
+      for (int i = 1; i < jmlhkolom; i++) {
+        System.out.println("X" + i + ": " + hasil[i - 1]);
+      }
     } else {
-      // masukkin fungsi gauss
-    }
-    // print hasil
-    System.out.println();
-    for (int i = 1; i < jmlhbaris+1; i++){
-      System.out.println("X" + i + ": " + hasil[i-1]);
+      System.out.println("Determinan dari matriks adalah 0, tidak bisa menggunakan Cramer untuk menemukan solusi.");
     }
   }
 }

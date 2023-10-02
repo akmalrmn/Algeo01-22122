@@ -157,7 +157,7 @@ public class driver {
 
         matriks = Matrix.matriksBicubic();
         double hasil = BicubicSI.bicubic(matriks, x, y);
-        System.out.println("\nNilai dari f(" + x + ", "+ y +") adalah: " + hasil);
+        System.out.println("\nNilai dari f(" + x + ", " + y + ") adalah: " + hasil);
         // kembali ke menu awal
         scanner.nextLine();
         Thread.sleep(1000);
@@ -165,6 +165,9 @@ public class driver {
         scanner.nextLine();
       } else if (masukan == 6) {
 
+      } else if (masukan == 8) {
+        System.out.println();
+        ScaleImage.Scaling();
       } else {
         System.out.println("Input tidak valid");
       }

@@ -1,4 +1,5 @@
 import Matrix.*;
+import java.awt.image.BufferedImage;
 
 public class BicubicSI {
   // fungsi utama
@@ -36,8 +37,6 @@ public class BicubicSI {
     return mtrx;
   }
 
-  
-
   // membuat matriks 16x16 yang seperti di spek tugas
   public static Matrix matrixX() {
     Matrix koef = new Matrix(16, 16); // matrix variable dari tiap fungsi
@@ -61,5 +60,17 @@ public class BicubicSI {
   // melakukan inverse pada matrixX agar bisa dikali dengan matrixY
   public static Matrix inversematrixX() {
     return MatrixOperation.inversGaussJ(matrixX());
+  }
+
+  public int interpolate(BufferedImage img, double x, double y) {
+    int w = img.getWidth(), h = img.getHeight();
+    int x1 = (int) Math.floor(x), y1 = (int) Math.floor(y);
+
+    if (x1 < 0 || x1 >= w || y1 < 0 || y1 >= h) {
+      return 0; 
+    }
+
+    int pixel = img.getRGB(x1, y1);
+    return pixel;
   }
 }

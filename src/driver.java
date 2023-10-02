@@ -17,7 +17,8 @@ public class driver {
               "4. Interpolasi Polinom\n" +
               "5. Interpolasi Bicubic Spline\n" +
               "6. Regresi linier berganda\n" +
-              "7. Keluar\n");
+              "7. Image scaler\n" +
+              "8. Keluar\n");
 
       // input pilihan
       Thread.sleep(1000);
@@ -26,7 +27,7 @@ public class driver {
       Thread.sleep(1000);
 
       // masuk ke pilihan
-      if (masukan == 7) {
+      if (masukan == 8) {
         System.out.println("Terima kasih telah menggunakan program ini");
         break;
       }
@@ -165,7 +166,7 @@ public class driver {
         scanner.nextLine();
       } else if (masukan == 6) {
 
-      } else if (masukan == 8) {
+      } else if (masukan == 7) {
         System.out.println();
         ScaleImage.Scaling();
       } else {

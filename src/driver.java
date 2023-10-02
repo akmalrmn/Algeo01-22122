@@ -168,7 +168,7 @@ public class driver {
 
       } else if (masukan == 7) {
         System.out.println();
-        ScaleImage.Scaling();
+        ImageScaler.Scaling();
       } else {
         System.out.println("Input tidak valid");
       }

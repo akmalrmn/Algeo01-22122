@@ -3,7 +3,7 @@ import java.util.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-public class ScaleImage {
+public class ImageScaler {
     static Scanner sc = new Scanner(System.in);
 
     public static void Scaling() {

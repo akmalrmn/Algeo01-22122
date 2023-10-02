@@ -1,3 +1,5 @@
+import Matrix.Matrix;
+
 public class SPL_Cramer {
   public static void cramer(Matrix matrix) {
     int jmlhbaris = matrix.getRows();
@@ -16,7 +18,6 @@ public class SPL_Cramer {
     // menghitung determinan dari submatrix
     if (det != 0) {
       for (int j = 0; j < jmlhkolom - 1; j++) {
-        System.out.println(j);
         // memasukkan semua elemen matrix (kecuali kolom terakhir) ke submatrix
         for (int k = 0; k < jmlhbaris; k++) {
           for (int l = 0; l < jmlhkolom - 1; l++) {

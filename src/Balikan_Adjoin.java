@@ -1,3 +1,5 @@
+import Matrix.Matrix;
+
 public class Balikan_Adjoin {
   public static void adjoin(Matrix matrix) {
 

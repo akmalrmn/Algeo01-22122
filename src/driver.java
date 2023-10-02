@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import Matrix.Matrix;
+
 public class driver {
   public static void main(String[] args) throws InterruptedException {
     Scanner scanner = new Scanner(System.in);
@@ -15,7 +17,8 @@ public class driver {
               "4. Interpolasi Polinom\n" +
               "5. Interpolasi Bicubic Spline\n" +
               "6. Regresi linier berganda\n" +
-              "7. Keluar\n");
+              "7. Image scaler\n" +
+              "8. Keluar\n");
 
       // input pilihan
       Thread.sleep(1000);
@@ -24,7 +27,7 @@ public class driver {
       Thread.sleep(1000);
 
       // masuk ke pilihan
-      if (masukan == 7) {
+      if (masukan == 8) {
         System.out.println("Terima kasih telah menggunakan program ini");
         break;
       }
@@ -91,7 +94,7 @@ public class driver {
 
         // masuk ke pilihan
         Thread.sleep(1000);
-        matriks = matriks.matriksSPL();
+        matriks = matriks.matrikspersegi();
         switch (masukan2) {
           case 1:
             // fungsi reduksi baris
@@ -147,9 +150,25 @@ public class driver {
       } else if (masukan == 4) {
 
       } else if (masukan == 5) {
+        System.out.print("\nMasukkan nilai yang ingin dicari: \nx:");
+        double x = scanner.nextDouble();
+        System.out.print("y:");
+        double y = scanner.nextDouble();
+        System.out.println();
 
+        matriks = Matrix.matriksBicubic();
+        double hasil = BicubicSI.bicubic(matriks, x, y);
+        System.out.println("\nNilai dari f(" + x + ", " + y + ") adalah: " + hasil);
+        // kembali ke menu awal
+        scanner.nextLine();
+        Thread.sleep(1000);
+        System.out.println("\nTekan enter untuk kembali ke menu awal");
+        scanner.nextLine();
       } else if (masukan == 6) {
 
+      } else if (masukan == 7) {
+        System.out.println();
+        ImageScaler.Scaling();
       } else {
         System.out.println("Input tidak valid");
       }

@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import Matrix.Matrix;
+
 public class Interpolasi_Polinom {
     static void createAugmented(Matrix matrix, Matrix matrixPoint) {
         int n = matrix.getRows() - 1;

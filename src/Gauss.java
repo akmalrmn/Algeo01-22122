@@ -1,3 +1,5 @@
+import Matrix.Matrix;
+
 public class Gauss {
 
   static void performElimination(Matrix matrix) {

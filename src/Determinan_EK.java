@@ -1,3 +1,5 @@
+import Matrix.Matrix;
+
 public class Determinan_EK {
     public static double determinant(Matrix matrix) {
         int n = matrix.getCols();

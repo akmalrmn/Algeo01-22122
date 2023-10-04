@@ -28,7 +28,7 @@ public class driver {
 
       // masuk ke pilihan
       if (masukan == 8) {
-        System.out.println("Terima kasih telah menggunakan program ini");
+        System.out.println("\nTerima kasih telah menggunakan program ini! ");
         break;
       }
 
@@ -169,6 +169,11 @@ public class driver {
       } else if (masukan == 7) {
         System.out.println();
         ImageScaler.Scaling();
+        // kembali ke menu awal
+        scanner.nextLine();
+        Thread.sleep(1000);
+        System.out.println("\nTekan enter untuk kembali ke menu awal");
+        scanner.nextLine();
       } else {
         System.out.println("Input tidak valid");
       }

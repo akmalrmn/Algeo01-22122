@@ -1,5 +1,4 @@
 import Matrix.*;
-import java.awt.image.BufferedImage;
 
 public class BicubicSI {
   // fungsi utama
@@ -18,6 +17,7 @@ public class BicubicSI {
     return hasil;
   }
 
+  // mencari nilai koefisien
   public static Matrix koefisien(Matrix m, Matrix xMatrix) {
     return MatrixOperation.multiplyMatrix(inversematrixX(), matrixY(m));
   }
@@ -62,15 +62,4 @@ public class BicubicSI {
     return MatrixOperation.inversGaussJ(matrixX());
   }
 
-  public int interpolate(BufferedImage img, double x, double y) {
-    int w = img.getWidth(), h = img.getHeight();
-    int x1 = (int) Math.floor(x), y1 = (int) Math.floor(y);
-
-    if (x1 < 0 || x1 >= w || y1 < 0 || y1 >= h) {
-      return 0; 
-    }
-
-    int pixel = img.getRGB(x1, y1);
-    return pixel;
-  }
 }

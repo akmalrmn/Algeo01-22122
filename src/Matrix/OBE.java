@@ -24,7 +24,6 @@ public class OBE {
       }
     }
 
-
     return m1;
   }
 }

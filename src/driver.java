@@ -150,20 +150,24 @@ public class driver {
       } else if (masukan == 4) {
 
       } else if (masukan == 5) {
-        System.out.print("\nMasukkan nilai yang ingin dicari: \nx:");
-        double x = scanner.nextDouble();
-        System.out.print("y:");
-        double y = scanner.nextDouble();
-        System.out.println();
-
         matriks = Matrix.matriksBicubic();
-        double hasil = BicubicSI.bicubic(matriks, x, y);
-        System.out.println("\nNilai dari f(" + x + ", " + y + ") adalah: " + hasil);
-        // kembali ke menu awal
-        scanner.nextLine();
-        Thread.sleep(1000);
-        System.out.println("\nTekan enter untuk kembali ke menu awal");
-        scanner.nextLine();
+        String ulang = "y";
+
+        while (ulang.equals("y")) {
+          System.out.print("\nMasukkan nilai yang ingin dicari: \nx: ");
+          double x = scanner.nextDouble();
+          System.out.print("y: ");
+          double y = scanner.nextDouble();
+          System.out.println();
+
+          double hasil = BicubicSI.bicubic(matriks, x, y);
+          System.out.println("\nNilai dari f(" + x + ", " + y + ") adalah: " + hasil);
+          // kembali ke menu awal
+          scanner.nextLine();
+          Thread.sleep(1000);
+          System.out.println("\nApakah ingin mencari nilai lain? (y/n)");
+          ulang = scanner.nextLine();
+        }
       } else if (masukan == 6) {
 
       } else if (masukan == 7) {

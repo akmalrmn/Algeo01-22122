@@ -19,7 +19,7 @@ public class MatrixOperation {
     Matrix mOut = new Matrix(m.numRows, m.numCols);
     for (i = 0; i < mOut.numRows; i++) {
       for (j = 0; j < mOut.numCols; j++) {
-        mOut.setElmt(i, j, mTemp.getElmt(i,j));
+        mOut.setElmt(i, j, mTemp.getElmt(i, j));
       }
     }
     for (i = 0; i < mOut.numRows; i++) {

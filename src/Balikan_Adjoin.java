@@ -15,7 +15,8 @@ public class Balikan_Adjoin {
         for (int kolomutama = 0; kolomutama < n; kolomutama++) {
           for (int baris = 0; baris < n; baris++) {
             for (int kolom = 0; kolom < n; kolom++) {
-              // mengisi submatrix dengan elemen matrix yang tidak berada di baris dan kolom utama
+              // mengisi submatrix dengan elemen matrix yang tidak berada di baris dan kolom
+              // utama
               if ((baris > barisutama) && (kolom > kolomutama)) {
                 submatrix.data[baris - 1][kolom - 1] = matrix.data[baris][kolom];
               } else if ((baris > barisutama) && (kolom < kolomutama)) {

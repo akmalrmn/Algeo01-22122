@@ -11,13 +11,13 @@ public class ImageScaler {
         String fileName, fileOuput, imgPath;
         int i, j, k, l;
 
-        BufferedImage img = null;
-        BufferedImage doubleImg = null; // hasil akhir
-        BufferedImage imgTemp = null; // buat temp interpolasi
-        System.out.print("Masukkan Nama File Gambar (berserta formatnya): ");
+        BufferedImage img = null; // Menginisialisasi variabel BufferedImage untuk gambar input.
+        BufferedImage doubleImg = null; // Menginisialisasi BufferedImage untuk gambar hasil penskalaan.
+        BufferedImage imgTemp = null; // Menginisialisasi BufferedImage untuk pemrosesan gambar sementara.
+        System.out.print("Masukkan nama file gambar (berserta formatnya): ");
         fileName = sc.nextLine();
         imgPath = imagePath(fileName);
-        File imageFile = new File(imgPath);
+        File imageFile = new File(imgPath); // Membuat objek File untuk gambar input.
 
         try {
             img = ImageIO.read(imageFile);
@@ -25,14 +25,22 @@ public class ImageScaler {
             System.out.print("Masukkan faktor scaling: ");
             float factor = sc.nextFloat();
             System.out.println("scaling the image..\n");
+
+            // Membuat BufferedImage baru untuk gambar hasil penskalaan menggunakan faktor
+            // penskalaan yang diberikan.
             doubleImg = new BufferedImage((int) (w * factor), (int) (h * factor), BufferedImage.TYPE_INT_RGB);
+
+            // Membuat BufferedImage sementara dengan batas untuk memfasilitasi interpolasi.
             imgTemp = new BufferedImage(w + 4, h + 4, BufferedImage.TYPE_INT_RGB);
-            // ngisi gambar temporary dengan image normal dengan bingkai atas
+
+            // Mengisi gambar sementara dengan konten gambar asli dan menambahkan batas.
             for (i = 0; i < w; i++) {
                 for (j = 0; j < h; j++) {
                     imgTemp.setRGB(i + 2, j + 2, img.getRGB(i, j));
                 }
             }
+
+            // Perulangan untuk menangani interpolasi batas.
             for (i = 0; i < w + 4; i++) {
                 for (j = 0; j < h + 4; j++) {
                     if (i == 1 && j > 1 && j < h + 3) {
@@ -61,8 +69,10 @@ public class ImageScaler {
                 }
             }
 
+            // Perulangan melalui gambar asli untuk melakukan penskalaan dan interpolasi.
             for (i = 0; i < w; i++) {
                 for (j = 0; j < h; j++) {
+                    // Menghitung koordinat yang telah diubah skala dan melakukan penskalaan.
                     int scaledX = (int) (i * factor);
                     int scaledY = (int) (j * factor);
                     if (scaledX >= doubleImg.getWidth() || scaledY >= doubleImg.getHeight()) {
@@ -70,6 +80,7 @@ public class ImageScaler {
                     }
                     doubleImg.setRGB(scaledX, scaledY, img.getRGB(i, j));
 
+                    // Membuat matriks 4x4 untuk interpolasi bicubic.
                     Matrix mBic = new Matrix(4, 4);
                     int mRow = 0, mCol, elmt;
                     for (k = i - 1; k < i + 3; k++) {
@@ -82,6 +93,8 @@ public class ImageScaler {
                         mRow++;
                     }
 
+                    // Melakukan interpolasi nilai piksel dan mengaplikasikannya ke gambar yang
+                    // telah diubah skala.
                     Matrix mFunc = BicubicSI.matrixY(mBic);
 
                     int px = img.getRGB(i, j);
@@ -145,10 +158,12 @@ public class ImageScaler {
         }
     }
 
+    // Fungsi untuk mengekstrak nilai saluran alpha dari sebuah piksel.
     public static int rgbAlpha(int pixel) {
         return (pixel >> 24) & 0xff;
     }
 
+    // Fungsi untuk mengekstrak nilai saluran hijau dari sebuah piksel.
     public static int rgbGreen(int pixel) {
         return (pixel >> 8) & 0xff;
     }

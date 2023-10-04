@@ -87,9 +87,9 @@ public class Matrix {
 
     public Matrix matriksSPL() {
         // Membaca size matrix
-        System.out.print("\nn: ");
+        System.out.print("\nJumlah baris: ");
         this.numRows = scanElmt.nextInt();
-        System.out.print("m: ");
+        System.out.print("Jumlah kolom: ");
         this.numCols = scanElmt.nextInt();
 
         // membuat matrix
@@ -135,7 +135,7 @@ public class Matrix {
         }
     }
 
-    public static Matrix matriksBicubic(){
+    public static Matrix matriksBicubic() {
         Matrix hasil = new Matrix(20, 20);
         Matrix mOut1 = new Matrix(4, 4);
         mOut1.readMatrix1();
@@ -156,7 +156,6 @@ public class Matrix {
         }
         return mOut;
     }
-
 
     public void setCol(int col) {
         this.resize(this.numRows, col);
@@ -187,8 +186,6 @@ public class Matrix {
         this.data = mtrx;
     }
 
-    
-
     public Matrix copy(int Row1, int Row2, int Col1, int Col2) {
         int i, j;
         Matrix mOut = new Matrix(Row2, Col2);
@@ -214,6 +211,4 @@ public class Matrix {
         }
         return val;
     }
-
-    
 }

@@ -36,7 +36,7 @@ public class SPL_Cramer {
         System.out.println("X" + i + ": " + hasil[i - 1]);
       }
     } else {
-      System.out.println("Determinan dari matriks adalah 0, tidak bisa menggunakan Cramer untuk menemukan solusi.");
+      System.out.println("\nDeterminan dari matriks adalah 0, tidak bisa menggunakan Cramer untuk menemukan solusi.");
     }
   }
 }

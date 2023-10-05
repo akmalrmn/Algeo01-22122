@@ -44,7 +44,7 @@ public class driver {
             "\n1. Metode eliminasi Gauss\n" +
                 "2. Metode eliminasi Gauss-Jordan\n" +
                 "3. Metode matriks balikan\n" +
-                "4. Kaidah cramer\n" + 
+                "4. Kaidah cramer\n" +
                 "Tekan angka lain untuk kembali ke menu awal\n");
         Thread.sleep(1000);
 
@@ -152,7 +152,7 @@ public class driver {
       } else if (masukan == 3) {
         System.out.println(
             "\n1. Matriks balikan dengan adjoin\n" +
-                "2. Matriks balikan dengan reduksi baris\n" + 
+                "2. Matriks balikan dengan reduksi baris\n" +
                 "Tekan angka lain untuk kembali ke menu awal\n");
         Thread.sleep(1000);
 
@@ -171,7 +171,7 @@ public class driver {
         // masuk ke pilihan
         switch (masukan2) {
           case 1:
-          matriks = text.pilihan1();
+            matriks = text.pilihan1();
             Thread.sleep(1000);
             matriks = Balikan_Adjoin.adjoin(matriks);
 
@@ -181,7 +181,7 @@ public class driver {
             System.out.println("\nTekan enter untuk kembali ke menu awal");
             break;
           case 2:
-          matriks = text.pilihan1();
+            matriks = text.pilihan1();
             Thread.sleep(1000);
             matriks = Balikan_GaussJ.printInversGJ(matriks);
 

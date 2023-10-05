@@ -8,9 +8,15 @@ import java.util.Scanner;
 import Matrix.MatrixADT;
 
 public class Determinan_ReduksiBaris {
-      private static String fileName = "";
+      static Scanner scanner = new Scanner(System.in);
+      static int count = 1;
+      static String fileName = "Solusi_DeterminanReduksi_Problem";
 
       static double performOBE(MatrixADT matrix) {
+        if (matrix.getRows() != matrix.getCols()){
+            System.out.println("Matriks bukan merupakan matriks persegi.");
+            return 0;
+        } else {
         double determinan = 1;
 
         for (int k = 0; k <= matrix.getLastIdxRow(); k++) {
@@ -49,7 +55,17 @@ public class Determinan_ReduksiBaris {
             determinan *= matrix.getElmtDiagonal(i);
         }
 
+        System.out.printf("Determinan dari matriks tersebut = %.6f\n", determinan);
+
+        System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
+        int input = scanner.nextInt();
+
+        if (input == 1){
+            outputFile(determinan);
+        }
+
         return determinan;
+        }
       }
 
       static void swap_row(MatrixADT matrix, int i, int j) {
@@ -115,12 +131,8 @@ public class Determinan_ReduksiBaris {
       }
       
       static void outputFile(Double answer){
-            if (fileName.length() == 0){
-                fileName = "Solusi_Determinan_Reduksi_InputKeyboard.txt";
-            }
-
             try {
-                File myObj = new File("./test/output/Solusi_Determinan_Reduksi_" + fileName);
+                File myObj = new File("./test/output/" + fileName + count + ".txt");
                 if (myObj.createNewFile()) {
                   System.out.println("File created: " + myObj.getName());
                 } else {
@@ -132,7 +144,7 @@ public class Determinan_ReduksiBaris {
             }
         
             try {
-                BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/Solusi_Determinan_Reduksi_" + fileName));
+                BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + fileName + count));
 
                 bw.write("Determinan dari matriks tersebut = " + answer + "\n");
 
@@ -143,61 +155,5 @@ public class Determinan_ReduksiBaris {
                 e.printStackTrace();
             }
         }
-
-      public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Apakah ingin memasukkan input dari file?\n1. Yes\n2. No");
-
-        int input = scanner.nextInt();
-        
-        if (input == 1){
-            System.out.println("Masukkan nama file: ");
-            fileName = scanner.next();
-            MatrixADT matrix = inputFile(fileName);
-            System.out.println();
-
-            if (matrix.getRows() != matrix.getCols()){
-                System.out.println("Matriks bukan merupakan matriks persegi.");
-            } else {
-                Double determinant = performOBE(matrix);
-                System.out.printf("Determinan dari matriks tersebut = %.6f\n", determinant);
-
-                System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
-                input = scanner.nextInt();
-
-                if (input == 1){
-                    outputFile(determinant);
-                }
-            }
-
-        } else if (input == 2)  {
-            System.out.println("Masukkan nilai m: ");
-            int m = scanner.nextInt();
-            System.out.println("Masukkan nilai n: ");
-            int n = scanner.nextInt();
-
-            System.out.print("Masukkan matriks: \n");
-            MatrixADT matrix = new MatrixADT(m, n);
-            matrix.readMatrix(m, n);
-
-            if (m != n ){
-                System.out.println("Matriks bukan merupakan matriks persegi.");
-            } else {
-                Double determinant = performOBE(matrix);
-                System.out.printf("Determinan dari matriks tersebut = %.6f\n", determinant);
-
-                System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
-                input = scanner.nextInt();
-
-                if (input == 1){
-                    outputFile(determinant);
-                }
-            }
-        }
-
-        scanner.close();
-        fileName = "";
-      }
     
 }

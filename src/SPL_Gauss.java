@@ -1,6 +1,5 @@
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,7 +7,9 @@ import java.util.Scanner;
 import Matrix.MatrixADT;
 
 public class SPL_Gauss {
-  public static String fileName = "";
+  static Scanner scanner = new Scanner(System.in);
+  static int count = 1;
+  static String fileName = "Solusi_Gauss_Problem";
 
   static void performInconsistent(MatrixADT matrix){
     int rowNow = 0;
@@ -70,17 +71,21 @@ public class SPL_Gauss {
   }
 
   static void performElimination(MatrixADT matrix) {
-    int singular_flag = forwardElim(matrix);
-
-    if (singular_flag != -1) {
-      if (matrix.getElmt(singular_flag, matrix.getLastIdxCol()) != 0){
-        System.out.print("SPL tersebut tidak memiliki solusi.\n");
-      } else {
-        performInconsistent(matrix);
-      }
-
+    if ( matrix.getRows() != matrix.getCols() -1){
+      performInconsistent(matrix);
     } else {
-       consistentSolution(matrix);
+      int singular_flag = forwardElim(matrix);
+
+      if (singular_flag != -1) {
+        if (matrix.getElmt(singular_flag, matrix.getLastIdxCol()) != 0){
+          System.out.print("SPL tersebut tidak memiliki solusi.\n");
+        } else {
+          performInconsistent(matrix);
+        }
+
+      } else {
+        consistentSolution(matrix);
+      }
     }
   }
 
@@ -104,7 +109,31 @@ public class SPL_Gauss {
         }
       }
 
-      if (matrix.getElmt(idxMax, k) == 0) return k;
+      if (matrix.getElmt(idxMax, k) == 0) {
+        boolean all_zero = true;
+        int idxAllZero = -1;
+
+        for(int i = 0; i < matrix.getRows(); i++){
+          all_zero = true;
+
+          for (int j = 0; j < matrix.getCols() - 1; j++){
+            if (matrix.getElmt(i, j) != 0){
+              all_zero = false;
+              continue;
+            } 
+          }
+
+          if (matrix.getElmt(i, matrix.getLastIdxCol()) == 0 && all_zero){
+            idxAllZero = i;
+          } else if (matrix.getElmt(i, matrix.getLastIdxCol()) != 0 && all_zero){
+            
+            return i;
+          }
+      
+        }
+
+        return idxAllZero;
+      }
 
       if (idxMax != k) swap_row(matrix, k, idxMax);
 
@@ -122,61 +151,9 @@ public class SPL_Gauss {
       }
 
     }
-    return -1;
-  }
-
-  static MatrixADT inputFile(String namaFile){
-
-    int numRows = 0;
-    int numCols = 0;
-
-    try {
-      File myObj = new File("./test/" + namaFile);
-      Scanner sizeFinder = new Scanner(myObj);
-      Scanner myReader = new Scanner(myObj);
-
-      String dataTemp = sizeFinder.nextLine();
-
-      for (int j = 0; j < dataTemp.length(); j++){
-        if (dataTemp.charAt(j) == ' '){
-            numCols++;
-        }
-      }
-      numCols++;
-
-      while(sizeFinder.hasNextLine()){
-        sizeFinder.nextLine();
-        numRows++;
-      }
-      numRows++;
-
-      sizeFinder.close();
-
-      MatrixADT matrix = new MatrixADT(numRows, numCols);
-      
-      int i = 0;
-      while (myReader.hasNextLine()) {
-        String[] line = myReader.nextLine().trim().split(" ");
-
-        for (int j = 0; j < numCols; j++) {
-            // System.out.println(Double.parseDouble(line[j]));
-            matrix.setElmt(i, j, Double.parseDouble(line[j]));
-        }
-        i++;
-      }
-      myReader.close();
-
-      return matrix;
-
-    } catch (FileNotFoundException e) {
-      MatrixADT matrix = new MatrixADT(0, 0);
-
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-
-      return matrix;
-    }
     
+
+    return -1;
   }
 
   public static void consistentSolution(MatrixADT matrix) {
@@ -200,7 +177,6 @@ public class SPL_Gauss {
        System.out.printf("x%d = %.6f\n", i+1, solution.getElmt(i, 0));
     }
 
-    Scanner scanner = new Scanner(System.in);
     System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
     int input = scanner.nextInt();
 
@@ -208,11 +184,11 @@ public class SPL_Gauss {
       outputFileConsistent(matrix);
     }
 
-    scanner.close();
+     
   }
 
   static void inconsistentSolution(MatrixADT matrix){
-    System.out.print("SPL tersebut memiliki solusi parametrik.\n\n");
+    System.out.print("\nSPL tersebut memiliki solusi parametrik.\n\n");
     int kolom = matrix.getCols();
     int row = matrix.getRows();
 
@@ -222,9 +198,6 @@ public class SPL_Gauss {
       solusi[i] = false;
     }
     
-    // int pointerAlphabet = 0;
-    // char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-
     for (int i = row - 1; i >= 0; i--){
       for (int j = i; j < kolom - 1; j++){
         boolean flag = false;
@@ -269,7 +242,8 @@ public class SPL_Gauss {
       }
     }
 
-    Scanner scanner = new Scanner(System.in);
+    System.out.println();
+
     System.out.println("Apakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No\n");
     int input = scanner.nextInt();
 
@@ -277,7 +251,7 @@ public class SPL_Gauss {
       outputFileInconsistent(matrix);
     }
 
-    scanner.close();
+     
   }
 
   static void outputFileInconsistent(MatrixADT matrix){
@@ -286,11 +260,11 @@ public class SPL_Gauss {
     }
 
     try {
-            File myObj = new File("./test/output/Solusi_" + fileName);
+            File myObj = new File("./test/output/" + fileName + count + ".txt");
             if (myObj.createNewFile()) {
               System.out.println("File dibuat: " + myObj.getName());
             } else {
-              System.out.println("File already exists.");
+              System.out.println("File already exists. Akan dilakukan replace.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -298,7 +272,7 @@ public class SPL_Gauss {
         }
     
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/Solusi_" + fileName));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/" + fileName + count++ + ".txt"));
 
             bw.write("Matriks hasil eliminasi:\n");
             for (int i = 0; i < matrix.getRows(); i++) {
@@ -322,9 +296,7 @@ public class SPL_Gauss {
               solusi[i] = false;
             }
             
-            // int pointerAlphabet = 0;
-            // char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-
+            
             for (int i = row - 1; i >= 0; i--){
               for (int j = i; j < kolom - 1; j++){
                 boolean flag = false;
@@ -378,12 +350,8 @@ public class SPL_Gauss {
   }
 
   static void outputFileConsistent(MatrixADT matrix){
-    if (fileName.length() == 0){
-      fileName = "SPL_Gauss_KeyboardInput.txt";
-    }
-
     try {
-            File myObj = new File("./test/output/Solusi_" + fileName);
+            File myObj = new File("./test/output/" + fileName + count + ".txt");
             if (myObj.createNewFile()) {
               System.out.println("File dibuat: " + myObj.getName());
             } else {
@@ -395,7 +363,7 @@ public class SPL_Gauss {
         }
     
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/Solusi_" + fileName));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/" + fileName + count++ + ".txt"));
 
             bw.write("Matriks hasil eliminasi:\n");
             for (int i = 0; i < matrix.getRows(); i++) {
@@ -436,43 +404,4 @@ public class SPL_Gauss {
         }
   }
 
-  public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-
-    System.out.println("Apakah ingin memasukkan input dari file?\n1. Yes\n2. No");
-
-    int input = scanner.nextInt();
-    
-    if (input == 1){
-      System.out.println("Masukkan nama file: ");
-      fileName = scanner.next();
-      MatrixADT matrix = inputFile(fileName);
-      System.out.println();
-
-      if (matrix.getRows() != matrix.getCols() -1){
-        performInconsistent(matrix);
-      } else {
-        performElimination(matrix);
-      }
-
-    } else if (input == 2)  {
-      System.out.println("Masukkan nilai m: ");
-      int m = scanner.nextInt();
-      System.out.println("Masukkan nilai n: ");
-      int n = scanner.nextInt();
-
-      System.out.print("Masukkan matriks: \n");
-      MatrixADT matrix = new MatrixADT(m, n);
-      matrix.readMatrix(m,n);
-
-      if (m != n -1){
-        performInconsistent(matrix);
-      } else {
-        performElimination(matrix);
-      }
-    }
-
-    scanner.close();
-    fileName = "";
-  }
 }

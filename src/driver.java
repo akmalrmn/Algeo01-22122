@@ -50,7 +50,7 @@ public class driver {
           case 1:
             matriks = text.pilihan1();
             Thread.sleep(1000);
-            Gauss.performElimination(matriks);
+            SPL_Gauss.performElimination(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
@@ -60,6 +60,7 @@ public class driver {
           case 2:
             matriks = text.pilihan1();
             Thread.sleep(1000);
+            SPL_GaussJ.SPLGaussJordan(matriks);
             // fungsi gauss-jordan
 
             // kembali ke menu awal
@@ -70,6 +71,7 @@ public class driver {
           case 3:
             matriks = text.pilihan1();
             Thread.sleep(1000);
+            SPL_Balikan.findSolution(matriks);
             // fungsi matriks balikan
 
             // kembali ke menu awal
@@ -106,7 +108,7 @@ public class driver {
           case 1:
             matriks = text.pilihan1();
             Thread.sleep(1000);
-            // fungsi reduksi baris
+            Determinan_ReduksiBaris.performOBE(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
@@ -145,12 +147,13 @@ public class driver {
 
             // kembali ke menu awal
             Thread.sleep(1000);
+            text.matrixToFile(matriks);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
             break;
           case 2:
           matriks = text.pilihan1();
             Thread.sleep(1000);
-            // fungsi reduksi baris
+            Balikan_GaussJ.inversGaussJ(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);

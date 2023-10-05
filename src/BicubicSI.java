@@ -61,5 +61,4 @@ public class BicubicSI {
   public static MatrixADT inversematrixX() {
     return Balikan_GaussJ.inversGaussJ(matrixX());
   }
-
 }

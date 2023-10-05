@@ -17,4 +17,11 @@ public class text {
     } 
     return matriks;
   }
+
+  public static void matrixToFile(MatrixADT matriks){
+    scanner.nextLine();
+    System.out.print("Masukkan nama file: ");
+    String namaFile = scanner.nextLine();
+    Parser.createFile(matriks, namaFile);
+  }
 }

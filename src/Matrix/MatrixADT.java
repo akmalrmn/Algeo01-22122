@@ -226,4 +226,31 @@ public class MatrixADT {
         }
         return mtrx;
     }
+    public void createIdentity(){
+        int Length = this.numRows;
+        for(int i = 0; i < Length; i++){
+            for(int j = 0; j < Length; j++){
+                if (j == i){
+                    this.data[i][j] = 1;
+                } else {
+                    this.data[i][j] = 0;
+                }
+            }
+        }
+    }
+    public MatrixADT multiplyMatrix1(MatrixADT matrix2){
+        MatrixADT matrixAns = new MatrixADT(this.numRows, matrix2.getCols());
+
+        double jumlah = 0;
+        for (int i = 0; i < this.numRows; i++){
+            for (int j = 0; j < matrix2.getCols(); j++){
+                for (int k = 0; k < matrix2.getRows(); k++){
+                    jumlah = jumlah + this.data[i][k] * matrix2.getElmt(k, j);
+                }
+                matrixAns.setElmt(i, j, jumlah);
+                jumlah = 0; 
+            }
+        }
+        return matrixAns;
+    }
 }

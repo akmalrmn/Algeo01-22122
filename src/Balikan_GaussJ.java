@@ -31,7 +31,8 @@ public class Balikan_GaussJ {
 
     return mTemp.copy(0, col, col, col);
   }
-  public static MatrixADT printInversGJ(MatrixADT m){
+
+  public static MatrixADT printInversGJ(MatrixADT m) {
     m = inversGaussJ(m);
     m.displayMatrix();
     return m;

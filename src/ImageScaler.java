@@ -174,7 +174,7 @@ public class ImageScaler {
 
     public static void printImage(String fileName, BufferedImage img) {
         try {
-            String outputPath = imagePath(fileName);
+            String outputPath = "test/output/" + fileName;
             File outputFile = new File(outputPath);
 
             ImageIO.write(img, "jpg", outputFile);

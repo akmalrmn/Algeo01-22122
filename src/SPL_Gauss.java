@@ -180,6 +180,11 @@ public class SPL_Gauss {
     System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
     int input = scanner.nextInt();
 
+    while (input != 1 && input != 2){
+      System.out.print("Input tidak valid\n");
+      input = scanner.nextInt();
+    }
+
     if (input == 1){
       outputFileConsistent(matrix);
     }

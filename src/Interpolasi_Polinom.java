@@ -143,6 +143,11 @@ public class Interpolasi_Polinom {
         System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
         int input = scanner.nextInt();
 
+        while (input != 1 && input != 2){
+            System.out.print("Input tidak valid\n");
+            input = scanner.nextInt();
+        }
+
         if (input == 1){
             outputFile(matrix, temp, x);
         }
@@ -314,7 +319,7 @@ public class Interpolasi_Polinom {
             findAnswer(matrix, inputNum);
         } else if (input == 2)  {
             MatrixADT matrixPoint;
-            System.out.println("Masukkan nilai N: ");
+            System.out.println("Masukkan nilai N (derajat maksimal polinom): ");
             int n = scanner.nextInt();
 
             matrixPoint = new MatrixADT(n  + 1, 2);

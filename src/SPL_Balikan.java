@@ -1,6 +1,5 @@
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -11,60 +10,6 @@ public class SPL_Balikan {
     static Scanner scanner = new Scanner(System.in);
     static String fileName = "Solusi_SPL_Inverse_Problem";
     static int count = 0;
-
-    static MatrixADT inputFile(String namaFile){
-
-    int numRows = 0;
-    int numCols = 0;
-
-    try {
-      File myObj = new File("./test/" + namaFile);
-      Scanner sizeFinder = new Scanner(myObj);
-      Scanner myReader = new Scanner(myObj);
-
-      String dataTemp = sizeFinder.nextLine();
-
-      for (int j = 0; j < dataTemp.length(); j++){
-        if (dataTemp.charAt(j) == ' '){
-            numCols++;
-        }
-      }
-      numCols++;
-
-      while(sizeFinder.hasNextLine()){
-        sizeFinder.nextLine();
-        numRows++;
-      }
-      numRows++;
-
-      sizeFinder.close();
-
-      MatrixADT matrix = new MatrixADT(numRows, numCols);
-      
-      int i = 0;
-      while (myReader.hasNextLine()) {
-        String[] line = myReader.nextLine().trim().split(" ");
-
-        for (int j = 0; j < numCols; j++) {
-            // System.out.println(Double.parseDouble(line[j]));
-            matrix.setElmt(i, j, Double.parseDouble(line[j]));
-        }
-        i++;
-      }
-      myReader.close();
-
-      return matrix;
-
-    } catch (FileNotFoundException e) {
-      MatrixADT matrix = new MatrixADT(0, 0);
-
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-
-      return matrix;
-    }
-    
-  }
 
     static void swap_row(MatrixADT matrix, int i, int j) {
         for (int k = 0; k < matrix.getCols(); k++) {
@@ -187,6 +132,11 @@ public class SPL_Balikan {
 
             System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
             int input = scanner.nextInt();
+
+            while (input != 1 && input != 2){
+              System.out.print("Input tidak valid\n");
+              input = scanner.nextInt();
+            }
 
             if (input == 1){
                 outputFile(komponenB, answer);

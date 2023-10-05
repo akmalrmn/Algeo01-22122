@@ -1,6 +1,13 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Interpolasi_Polinom {
+
+    private static String fileName = "";
 
     static void backSubstitute(Matrix matrix) {
         int numRows = matrix.getRows();
@@ -129,25 +136,226 @@ public class Interpolasi_Polinom {
         }
 
         System.out.printf(", f(%f) = %f.", x, temp);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
+        int input = scanner.nextInt();
+
+        if (input == 1){
+            outputFile(matrix, temp, x);
+        }
+
+        scanner.close();
     }
     
+    static Matrix inputFile(String namaFile){
+        int numRows = 0;
+        int numCols = 2;
+
+        try {
+        File myObj = new File("./test/" + namaFile);
+        Scanner sizeFinder = new Scanner(myObj);
+        Scanner myReader = new Scanner(myObj);
+
+        while(sizeFinder.hasNextLine()){
+            sizeFinder.nextLine();
+            numRows++;
+        }
+
+        numRows--;
+
+        sizeFinder.close();
+
+        Matrix matrix = new Matrix(numRows, numCols);
+        
+        int i = 0;
+        while (myReader.hasNextLine() && i < numRows) {
+            String[] line = myReader.nextLine().trim().split(" ");
+
+            for (int j = 0; j < numCols; j++) {
+                matrix.setElmt(i, j, Double.parseDouble(line[j]));
+            }
+            i++;
+        }
+        myReader.close();
+
+        return matrix;
+
+        } catch (FileNotFoundException e) {
+            Matrix matrix = new Matrix(0, 0);
+
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+
+            return matrix;
+        }
+        
+    }
+    
+    static Double inputNumber(String fileName, int numRows){
+        try {
+            File myObj = new File("./test/" + fileName);
+            Scanner myReader = new Scanner(myObj);
+
+            int i = numRows;
+            while ( i > 0 ){
+                myReader.nextLine();
+                i--;
+            }
+
+            String[] line = myReader.nextLine().trim().split(" ");
+            
+            double number = Double.parseDouble(line[0]);
+
+            myReader.close();
+
+            return number;
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+
+            return 0.0;
+        }
+    }
+
+    static void outputFile(Matrix matrix, double answer, double inputNum){
+        if (fileName.length() == 0){
+            fileName = "Solusi_Interpolasi_.txt";
+        }
+
+        try {
+            File myObj = new File("./test/output/Solusi_Interpolasi_" + fileName);
+            if (myObj.createNewFile()) {
+              System.out.println("File created: " + myObj.getName());
+            } else {
+              System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/Solusi_Interpolasi_" + fileName));
+
+            int pangkat = matrix.getRows() - 1;
+            int idxLastCol = matrix.getLastIdxCol();
+            bw.write("f(x) = ");
+            for( int i = 0; i <= matrix.getLastIdxRow(); i++){
+                double element = matrix.getElmt(i, idxLastCol);
+                if (i == matrix.getLastIdxRow()){
+                    if (element > 0){
+                        bw.write(String.format("+ %.4f ", Math.abs(element), pangkat--));
+                    } else if (element < 0) {
+                        bw.write(String.format("- %.4f ", Math.abs(element), pangkat--));
+                    } else {
+                        pangkat--;
+                    }
+                } else if ( i == matrix.getLastIdxRow() - 1){
+                    if (element > 0){
+                        if (i == 0){
+                            bw.write(String.format("%.4fx ", element));
+                        } else {
+                            bw.write(String.format("+ %.4fx ", element));
+                        }
+                        pangkat--;
+                    } else if (element < 0) {
+                        bw.write(String.format("- %.4fx^%d ", Math.abs(element), pangkat--));
+                    } else{
+                        pangkat--;
+                    }
+                }
+                else {
+                    if (element > 0){
+                        if (i == 0){
+                            bw.write(String.format("%.4fx^%d ", element, pangkat--));
+                        } else {
+                            bw.write(String.format("+ %.4fx^%d ", element, pangkat--));
+                        }
+                    } else if (element < 0) {
+                        bw.write(String.format("- %.4fx^%d ", Math.abs(element), pangkat--));
+                    } else {
+                        pangkat--;
+                    }
+                }
+            }
+
+            bw.write(String.format("\nf(%f) = %f", inputNum , answer));
+
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        Matrix matrixPoint;
-        int n = scanner.nextInt();
-        double x = scanner.nextDouble();
 
-        matrixPoint = new Matrix(n  + 1, 2);
-        matrixPoint.readMatrix(scanner);
+        System.out.println("Apakah ingin memasukkan input dari file?\n1. Yes\n2. No");
 
-        Matrix matrix = new Matrix(n + 1, n + 2);
+        int input = scanner.nextInt();
+        
+        if (input == 1){
+            System.out.println("Masukkan nama file: ");
+            fileName = scanner.next();
+            Matrix matrixPoint = inputFile(fileName);
+            System.out.println();
 
-        createAugmented(matrix, matrixPoint);
+            Matrix matrix = new Matrix(matrixPoint.getRows(), matrixPoint.getRows() + 1);
+            Double inputNum = inputNumber(fileName, matrixPoint.getRows());
 
-        performElimination(matrix);
-        backSubstitute(matrix);
+            createAugmented(matrix, matrixPoint);
 
-        findAnswer(matrix, x);
+            performElimination(matrix);
+            backSubstitute(matrix);
+
+            findAnswer(matrix, inputNum);
+        } else if (input == 2)  {
+            Matrix matrixPoint;
+            System.out.println("Masukkan nilai N: ");
+            int n = scanner.nextInt();
+
+            matrixPoint = new Matrix(n  + 1, 2);
+            matrixPoint.readMatrix(scanner);
+
+            Matrix matrix = new Matrix(n + 1, n + 2);
+
+            createAugmented(matrix, matrixPoint);
+
+            performElimination(matrix);
+            backSubstitute(matrix);
+
+            System.out.println("Masukkan nilai x: ");
+            double x = scanner.nextDouble();
+
+            findAnswer(matrix, x);
+            scanner.close();
+        }
+
         scanner.close();
+        fileName = "";
+
+
+        // Scanner scanner = new Scanner(System.in);
+        // Matrix matrixPoint;
+        // int n = scanner.nextInt();
+
+        // matrixPoint = new Matrix(n  + 1, 2);
+        // matrixPoint.readMatrix(scanner);
+
+        // Matrix matrix = new Matrix(n + 1, n + 2);
+
+        // createAugmented(matrix, matrixPoint);
+
+        // performElimination(matrix);
+        // backSubstitute(matrix);
+
+        // double x = scanner.nextDouble();
+
+        // findAnswer(matrix, x);
+        // scanner.close();
     }
 }

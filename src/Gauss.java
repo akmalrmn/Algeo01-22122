@@ -1,8 +1,8 @@
-import Matrix.Matrix;
+import Matrix.MatrixADT;
 
 public class Gauss {
 
-  static void performElimination(Matrix matrix) {
+  static void performElimination(MatrixADT matrix) {
     int singular_flag = forwardElim(matrix);
 
     /* if matrix is singular */
@@ -28,7 +28,7 @@ public class Gauss {
 
   // function for elementary operation of swapping two
   // rows
-  static void swap_row(Matrix matrix, int i, int j) {
+  static void swap_row(MatrixADT matrix, int i, int j) {
     for (int k = 0; k <= matrix.getRows(); k++) {
       double temp = matrix.getElmt(i, k);
       matrix.setElmt(i, k, matrix.getElmt(j, k));
@@ -37,7 +37,7 @@ public class Gauss {
   }
 
   // function to reduce matrix to r.e.f.
-  static int forwardElim(Matrix matrix) {
+  static int forwardElim(MatrixADT matrix) {
     for (int k = 0; k < matrix.getRows(); k++) {
       // Initialize maximum value and index for pivot
       int i_max = k;
@@ -95,7 +95,7 @@ public class Gauss {
   }
 
   // function to calculate the values of the unknowns
-  public static void backSubstitute(Matrix matrix) {
+  public static void backSubstitute(MatrixADT matrix) {
     int numRows = matrix.getRows();
     int lastCols = matrix.getCols() - 1;
 

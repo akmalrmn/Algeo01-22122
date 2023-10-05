@@ -1,12 +1,12 @@
-import Matrix.Matrix;
+import Matrix.MatrixADT;
 
 public class Balikan_Adjoin {
-  public static void adjoin(Matrix matrix) {
+  public static void adjoin(MatrixADT matrix) {
 
     int n = matrix.getCols();
-    Matrix submatrix = new Matrix(n - 1, n - 1);
-    Matrix matrixkofaktor = new Matrix(n, n);
-    Matrix matrixhasil = new Matrix(n, n);
+    MatrixADT submatrix = new MatrixADT(n - 1, n - 1);
+    MatrixADT matrixkofaktor = new MatrixADT(n, n);
+    MatrixADT matrixhasil = new MatrixADT(n, n);
     double det = Determinan_EK.determinant(matrix);
 
     if (det != 0) {

@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-import Matrix.Matrix;
+import Matrix.MatrixADT;
 
 public class Interpolasi_Polinom {
-    static void createAugmented(Matrix matrix, Matrix matrixPoint) {
+    static void createAugmented(MatrixADT matrix, MatrixADT matrixPoint) {
         int n = matrix.getRows() - 1;
 
         for (int i = 0; i <= matrix.getLastIdxRow(); i++) {
@@ -18,7 +18,7 @@ public class Interpolasi_Polinom {
         }
     }
 
-    static double findAnswer(Matrix matrix, double x) {
+    static double findAnswer(MatrixADT matrix, double x) {
         double temp = 0;
         int lastIdx = matrix.getLastIdxCol();
         int n = matrix.getRows() - 1;
@@ -32,14 +32,14 @@ public class Interpolasi_Polinom {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Matrix matrixPoint, matrix;
+        MatrixADT matrixPoint, matrix;
         int n = scanner.nextInt();
         double x = scanner.nextDouble();
 
-        matrixPoint = new Matrix(n + 1, 2);
+        matrixPoint = new MatrixADT(n + 1, 2);
         matrixPoint.readMatrix(n + 1, 2);
 
-        matrix = new Matrix(n + 1, n + 2);
+        matrix = new MatrixADT(n + 1, n + 2);
 
         createAugmented(matrix, matrixPoint);
 

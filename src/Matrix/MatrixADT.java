@@ -2,13 +2,13 @@ package Matrix;
 
 import java.util.Scanner;
 
-public class Matrix {
+public class MatrixADT {
     public double[][] data;
-    int numRows;
-    int numCols;
+    public int numRows;
+    public int numCols;
     Scanner scanElmt = new Scanner(System.in);
 
-    public Matrix(int nRows, int nCols) {
+    public MatrixADT(int nRows, int nCols) {
         this.numRows = nRows;
         this.numCols = nCols;
         this.data = new double[nRows][nCols];
@@ -67,13 +67,13 @@ public class Matrix {
         System.out.println();
     }
 
-    public Matrix matrikspersegi() {
+    public MatrixADT matrikspersegi() {
         // Membaca size matrix
         System.out.print("\nn: ");
         int baris = scanElmt.nextInt();
 
         // Membuat matrix
-        Matrix mOut = new Matrix(baris, baris);
+        MatrixADT mOut = new MatrixADT(baris, baris);
 
         // Membaca komponen matrix
         System.out.println("\nMasukkan matrix:");
@@ -85,7 +85,7 @@ public class Matrix {
         return mOut;
     }
 
-    public Matrix matriksSPL() {
+    public MatrixADT matriksSPL() {
         // Membaca size matrix
         System.out.print("\nJumlah baris: ");
         this.numRows = scanElmt.nextInt();
@@ -93,7 +93,7 @@ public class Matrix {
         this.numCols = scanElmt.nextInt();
 
         // membuat matrix
-        Matrix mOut = new Matrix(this.numRows, this.numCols);
+        MatrixADT mOut = new MatrixADT(this.numRows, this.numCols);
 
         // Membaca komponen matrix
         System.out.println("\nMasukkan matrix:");
@@ -135,17 +135,17 @@ public class Matrix {
         }
     }
 
-    public static Matrix matriksBicubic() {
-        Matrix hasil = new Matrix(20, 20);
-        Matrix mOut1 = new Matrix(4, 4);
+    public static MatrixADT matriksBicubic() {
+        MatrixADT hasil = new MatrixADT(20, 20);
+        MatrixADT mOut1 = new MatrixADT(4, 4);
         mOut1.readMatrix1();
         hasil = mOut1.copyMatrix();
 
         return hasil;
     }
 
-    public Matrix copyMatrix() {
-        Matrix mOut = new Matrix(this.numRows, this.numCols);
+    public MatrixADT copyMatrix() {
+        MatrixADT mOut = new MatrixADT(this.numRows, this.numCols);
         int i, j;
         mOut.numRows = this.numRows;
         mOut.numCols = this.numCols;
@@ -186,9 +186,9 @@ public class Matrix {
         this.data = mtrx;
     }
 
-    public Matrix copy(int Row1, int Row2, int Col1, int Col2) {
+    public MatrixADT copy(int Row1, int Row2, int Col1, int Col2) {
         int i, j;
-        Matrix mOut = new Matrix(Row2, Col2);
+        MatrixADT mOut = new MatrixADT(Row2, Col2);
         for (i = 0; i < Row2; i++) {
             for (j = 0; j < Col2; j++) {
                 mOut.setElmt(i, j, this.getElmt(i + Row1, j + Col1));
@@ -210,5 +210,20 @@ public class Matrix {
             }
         }
         return val;
+    }
+
+    public static MatrixADT multiplyMatrix(MatrixADT m1, MatrixADT m2) {
+        MatrixADT mtrx = new MatrixADT(16, 1);
+        double result;
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 1; j++) {
+                result = 0;
+                for (int k = 0; k < 16; k++) {
+                    result += m1.data[i][k] * m2.data[k][j];
+                }
+                mtrx.data[i][j] = result;
+            }
+        }
+        return mtrx;
     }
 }

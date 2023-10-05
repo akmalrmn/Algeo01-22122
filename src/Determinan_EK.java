@@ -1,7 +1,7 @@
-import Matrix.Matrix;
+import Matrix.MatrixADT;
 
 public class Determinan_EK {
-    public static double determinant(Matrix matrix) {
+    public static double determinant(MatrixADT matrix) {
         if (matrix.getCols() != matrix.getRows()) {
             System.out.println("Matriks bukan matriks persegi");
             return 0;
@@ -13,7 +13,7 @@ public class Determinan_EK {
             } else if (n == 2) {
                 det = matrix.data[0][0] * matrix.data[1][1] - matrix.data[0][1] * matrix.data[1][0];
             } else {
-                Matrix submatrix = new Matrix(n - 1, n - 1);
+                MatrixADT submatrix = new MatrixADT(n - 1, n - 1);
                 for (int j = 0; j < n; j++) {
                     for (int i = 1; i < n; i++) {
                         for (int k = 0; k < n; k++) {

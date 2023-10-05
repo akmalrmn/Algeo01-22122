@@ -1,11 +1,11 @@
 import java.util.Scanner;
-
-import Matrix.Matrix;
+import IO.*;
+import Matrix.MatrixADT;
 
 public class driver {
   public static void main(String[] args) throws InterruptedException {
     Scanner scanner = new Scanner(System.in);
-    Matrix matriks = new Matrix(25, 25);
+    MatrixADT matriks = new MatrixADT(25, 25);
     while (true) {
       // tampilan menu
       Thread.sleep(1000);
@@ -46,41 +46,50 @@ public class driver {
         scanner.nextLine();
 
         // masuk ke pilihan
-        matriks = matriks.matriksSPL();
-        Thread.sleep(1000);
         switch (masukan2) {
           case 1:
+            matriks = text.pilihan1();
+            Thread.sleep(1000);
             Gauss.performElimination(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
+            scanner.nextLine();
             break;
           case 2:
+            matriks = text.pilihan1();
+            Thread.sleep(1000);
             // fungsi gauss-jordan
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
+            scanner.nextLine();
             break;
           case 3:
+            matriks = text.pilihan1();
+            Thread.sleep(1000);
             // fungsi matriks balikan
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
+            scanner.nextLine();
             break;
           case 4:
+            matriks = text.pilihan1();
+            Thread.sleep(1000);
             SPL_Cramer.cramer(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
+            scanner.nextLine();
             break;
           default:
             System.out.println("Input tidak valid");
         }
-        scanner.nextLine();
       } else if (masukan == 2) {
         System.out.println(
             "\n1. Determinan dengan reduksi baris\n" +
@@ -93,10 +102,10 @@ public class driver {
         scanner.nextLine();
 
         // masuk ke pilihan
-        Thread.sleep(1000);
-        matriks = matriks.matrikspersegi();
         switch (masukan2) {
           case 1:
+            matriks = text.pilihan1();
+            Thread.sleep(1000);
             // fungsi reduksi baris
 
             // kembali ke menu awal
@@ -104,6 +113,8 @@ public class driver {
             System.out.println("\nTekan enter untuk kembali ke menu awal");
             break;
           case 2:
+            matriks = text.pilihan1();
+            Thread.sleep(1000);
             System.out.println("\nDeterminan: " + Determinan_EK.determinant(matriks));
 
             // kembali ke menu awal
@@ -126,10 +137,10 @@ public class driver {
         scanner.nextLine();
 
         // masuk ke pilihan
-        Thread.sleep(1000);
-        matriks = matriks.matrikspersegi();
         switch (masukan2) {
           case 1:
+          matriks = text.pilihan1();
+            Thread.sleep(1000);
             Balikan_Adjoin.adjoin(matriks);
 
             // kembali ke menu awal
@@ -137,6 +148,8 @@ public class driver {
             System.out.println("\nTekan enter untuk kembali ke menu awal");
             break;
           case 2:
+          matriks = text.pilihan1();
+            Thread.sleep(1000);
             // fungsi reduksi baris
 
             // kembali ke menu awal
@@ -150,7 +163,7 @@ public class driver {
       } else if (masukan == 4) {
 
       } else if (masukan == 5) {
-        matriks = Matrix.matriksBicubic();
+        matriks = MatrixADT.matriksBicubic();
         String ulang = "y";
 
         while (ulang.equals("y")) {

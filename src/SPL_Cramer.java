@@ -1,11 +1,11 @@
-import Matrix.Matrix;
+import Matrix.MatrixADT;
 
 public class SPL_Cramer {
-  public static void cramer(Matrix matrix) {
+  public static void cramer(MatrixADT matrix) {
     int jmlhbaris = matrix.getRows();
     int jmlhkolom = matrix.getCols();
     double[] hasil = new double[jmlhkolom - 1];
-    Matrix submatrix = new Matrix(jmlhbaris, jmlhkolom - 1);
+    MatrixADT submatrix = new MatrixADT(jmlhbaris, jmlhkolom - 1);
 
     // menghitung determinan matriks utama
     for (int i = 0; i < jmlhbaris; i++) {

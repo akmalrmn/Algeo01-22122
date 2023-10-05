@@ -2,9 +2,9 @@ import Matrix.*;
 
 public class BicubicSI {
   // fungsi utama
-  public static double bicubic(Matrix m, double x, double y) {
-    Matrix xMatrix = matrixX();
-    Matrix koef = koefisien(m, xMatrix);
+  public static double bicubic(MatrixADT m, double x, double y) {
+    MatrixADT xMatrix = matrixX();
+    MatrixADT koef = koefisien(m, xMatrix);
     double hasil = 0;
     int row = 0;
 
@@ -18,14 +18,14 @@ public class BicubicSI {
   }
 
   // mencari nilai koefisien
-  public static Matrix koefisien(Matrix m, Matrix xMatrix) {
-    return MatrixOperation.multiplyMatrix(inversematrixX(), matrixY(m));
+  public static MatrixADT koefisien(MatrixADT m, MatrixADT xMatrix) {
+    return MatrixADT.multiplyMatrix(inversematrixX(), matrixY(m));
   }
 
   // mengubah matriks 4x4 menjadi 16x1
-  public static Matrix matrixY(Matrix m) {
+  public static MatrixADT matrixY(MatrixADT m) {
     int numRow = 0;
-    Matrix mtrx = new Matrix(16, 1);
+    MatrixADT mtrx = new MatrixADT(16, 1);
 
     for (int i = 0; i < m.getRows(); i++) {
       for (int j = 0; j < m.getCols(); j++) {
@@ -38,8 +38,8 @@ public class BicubicSI {
   }
 
   // membuat matriks 16x16 yang seperti di spek tugas
-  public static Matrix matrixX() {
-    Matrix koef = new Matrix(16, 16); // matrix variable dari tiap fungsi
+  public static MatrixADT matrixX() {
+    MatrixADT koef = new MatrixADT(16, 16); // matrix variable dari tiap fungsi
     int row = 0, col = 0;
 
     for (int x = -1; x < 3; x++) {
@@ -58,8 +58,8 @@ public class BicubicSI {
   }
 
   // melakukan inverse pada matrixX agar bisa dikali dengan matrixY
-  public static Matrix inversematrixX() {
-    return MatrixOperation.inversGaussJ(matrixX());
+  public static MatrixADT inversematrixX() {
+    return Balikan_GaussJ.inversGaussJ(matrixX());
   }
 
 }

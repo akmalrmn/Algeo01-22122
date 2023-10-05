@@ -81,7 +81,7 @@ public class ImageScaler {
                     doubleImg.setRGB(scaledX, scaledY, img.getRGB(i, j));
 
                     // Membuat matriks 4x4 untuk interpolasi bicubic.
-                    Matrix mBic = new Matrix(4, 4);
+                    MatrixADT mBic = new MatrixADT(4, 4);
                     int mRow = 0, mCol, elmt;
                     for (k = i - 1; k < i + 3; k++) {
                         mCol = 0;
@@ -93,9 +93,9 @@ public class ImageScaler {
                         mRow++;
                     }
 
-                    // Melakukan interpolasi nilai piksel dan mengaplikasikannya ke gambar yang
+                    //Melakukan interpolasi nilai piksel dan mengaplikasikannya ke gambar yang
                     // telah diubah skala.
-                    Matrix mFunc = BicubicSI.matrixY(mBic);
+                    MatrixADT mFunc = BicubicSI.matrixY(mBic);
 
                     int px = img.getRGB(i, j);
                     int alpha = rgbAlpha(px);
@@ -134,7 +134,7 @@ public class ImageScaler {
         System.out.println("\nImage Scaling - done");
     }
 
-    // =========== FUNCTION ===============
+    //FUNCTION
     public static String imagePath(String fileName) {
         String filePath, currentPath;
         currentPath = System.getProperty("user.dir");

@@ -1,9 +1,9 @@
 package Matrix;
 
 public class OBE {
-  public static Matrix gaussJordan(Matrix m) {
+  public static MatrixADT gaussJordan(MatrixADT m) {
     // Perform Gauss-Jordan elimination
-    Matrix m1 = m.copyMatrix();
+    MatrixADT m1 = m.copyMatrix();
     for (int i = 0; i < m1.getRows(); i++) {
       // Find the pivot element
       double pivot = m1.data[i][i];

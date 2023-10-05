@@ -1,4 +1,3 @@
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -65,7 +64,10 @@ public class Determinan_ReduksiBaris {
       }
 
       if (input == 1) {
-        outputFile(determinan);
+        scanner.nextLine();
+        System.out.print("Masukkan nama file (tanpa txt): ");
+        String filename = scanner.nextLine();
+        outputFile(determinan, filename);
       }
 
       return determinan;
@@ -80,9 +82,9 @@ public class Determinan_ReduksiBaris {
     }
   }
 
-  static void outputFile(Double answer) {
+  static void outputFile(Double answer, String fileName) {
     try {
-      File myObj = new File("./test/output/" + fileName + count + ".txt");
+      File myObj = new File("./test/output/" + fileName + ".txt");
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
       } else {
@@ -94,12 +96,10 @@ public class Determinan_ReduksiBaris {
     }
 
     try {
-      BufferedWriter bw = new BufferedWriter(new FileWriter("./test/" + fileName + count));
-
-      bw.write("Determinan dari matriks tersebut = " + answer + "\n");
-
-      bw.flush();
-      bw.close();
+      FileWriter fw = new FileWriter("./test/output/" + fileName + ".txt");
+      fw.write("Determinan dari matriks tersebut = " + answer + "\n");
+      fw.close();
+      System.out.println("Content written to file.");
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();

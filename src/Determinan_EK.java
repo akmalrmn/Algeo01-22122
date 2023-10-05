@@ -21,7 +21,7 @@ public class Determinan_EK {
 
         if (input == 1) {
             scan.nextLine();
-            System.out.print("Masukkan nama file: ");
+            System.out.print("Masukkan nama file (tanpa txt): ");
             String filename = scan.nextLine();
             outputFile(det, filename);
         }

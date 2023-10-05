@@ -53,7 +53,7 @@ public class MatrixADT {
     public void displayMatrix() {
         for (int i = 0; i < this.numRows; i++) {
             for (int j = 0; j < this.numCols; j++) {
-                System.out.print( data[i][j]);
+                System.out.print(data[i][j]);
 
                 if (j != this.numCols - 1) {
                     System.out.print(" ");
@@ -65,24 +65,6 @@ public class MatrixADT {
             }
         }
         System.out.println();
-    }
-
-    public MatrixADT matrikspersegi() {
-        // Membaca size matrix
-        System.out.print("\nn: ");
-        int baris = scanElmt.nextInt();
-
-        // Membuat matrix
-        MatrixADT mOut = new MatrixADT(baris, baris);
-
-        // Membaca komponen matrix
-        System.out.println("\nMasukkan matrix:");
-        for (int i = 0; i < baris; i++) {
-            for (int j = 0; j < baris; j++) {
-                mOut.data[i][j] = scanElmt.nextDouble();
-            }
-        }
-        return mOut;
     }
 
     public MatrixADT matriksSPL() {
@@ -226,11 +208,12 @@ public class MatrixADT {
         }
         return mtrx;
     }
-    public void createIdentity(){
+
+    public void createIdentity() {
         int Length = this.numRows;
-        for(int i = 0; i < Length; i++){
-            for(int j = 0; j < Length; j++){
-                if (j == i){
+        for (int i = 0; i < Length; i++) {
+            for (int j = 0; j < Length; j++) {
+                if (j == i) {
                     this.data[i][j] = 1;
                 } else {
                     this.data[i][j] = 0;
@@ -238,17 +221,18 @@ public class MatrixADT {
             }
         }
     }
-    public MatrixADT multiplyMatrix1(MatrixADT matrix2){
+
+    public MatrixADT multiplyMatrix1(MatrixADT matrix2) {
         MatrixADT matrixAns = new MatrixADT(this.numRows, matrix2.getCols());
 
         double jumlah = 0;
-        for (int i = 0; i < this.numRows; i++){
-            for (int j = 0; j < matrix2.getCols(); j++){
-                for (int k = 0; k < matrix2.getRows(); k++){
+        for (int i = 0; i < this.numRows; i++) {
+            for (int j = 0; j < matrix2.getCols(); j++) {
+                for (int k = 0; k < matrix2.getRows(); k++) {
                     jumlah = jumlah + this.data[i][k] * matrix2.getElmt(k, j);
                 }
                 matrixAns.setElmt(i, j, jumlah);
-                jumlah = 0; 
+                jumlah = 0;
             }
         }
         return matrixAns;

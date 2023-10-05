@@ -1,24 +1,24 @@
 package IO;
-import java.util.Scanner;
 
+import java.util.Scanner;
 import Matrix.*;
 
 public class text {
   static Scanner scanner = new Scanner(System.in);
-  public static MatrixADT pilihan1(){
+
+  public static MatrixADT pilihan1() {
     MatrixADT matriks = new MatrixADT(0, 0);
     System.out.print("\n1. Input melalu file\n2. Input melalui keyboard\nMasukkan pilihan: ");
     int pilihan = scanner.nextInt();
-    if (pilihan == 1){
+    if (pilihan == 1) {
       matriks = Parser.FiletoMatrix();
+    } else if (pilihan == 2) {
+      matriks = matriks.matriksSPL();
     }
-    else if (pilihan == 2){
-      matriks = matriks.matrikspersegi();
-    } 
     return matriks;
   }
 
-  public static void matrixToFile(MatrixADT matriks){
+  public static void matrixToFile(MatrixADT matriks) {
     scanner.nextLine();
     System.out.print("Masukkan nama file: ");
     String namaFile = scanner.nextLine();

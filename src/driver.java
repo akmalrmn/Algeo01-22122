@@ -37,7 +37,8 @@ public class driver {
             "\n1. Metode eliminasi Gauss\n" +
                 "2. Metode eliminasi Gauss-Jordan\n" +
                 "3. Metode matriks balikan\n" +
-                "4. Kaidah cramer\n");
+                "4. Kaidah cramer\n" + 
+                "Tekan angka lain untuk kembali ke menu awal\n");
         Thread.sleep(1000);
 
         // input pilihan
@@ -95,7 +96,8 @@ public class driver {
       } else if (masukan == 2) {
         System.out.println(
             "\n1. Determinan dengan reduksi baris\n" +
-                "2. Determinan dengan ekspansi kofaktor\n");
+                "2. Determinan dengan ekspansi kofaktor\n" +
+                "Tekan angka lain untuk kembali ke menu awal\n");
         Thread.sleep(1000);
 
         // input pilihan
@@ -130,7 +132,8 @@ public class driver {
       } else if (masukan == 3) {
         System.out.println(
             "\n1. Matriks balikan dengan adjoin\n" +
-                "2. Matriks balikan dengan reduksi baris\n");
+                "2. Matriks balikan dengan reduksi baris\n" + 
+                "Tekan angka lain untuk kembali ke menu awal\n");
         Thread.sleep(1000);
 
         // input pilihan
@@ -164,7 +167,7 @@ public class driver {
         }
         scanner.nextLine();
       } else if (masukan == 4) {
-
+        Interpolasi_Polinom.main(args);
       } else if (masukan == 5) {
         matriks = MatrixADT.matriksBicubic();
         String ulang = "y";
@@ -185,7 +188,7 @@ public class driver {
           ulang = scanner.nextLine();
         }
       } else if (masukan == 6) {
-
+        
       } else if (masukan == 7) {
         System.out.println();
         ImageScaler.Scaling();
@@ -200,5 +203,4 @@ public class driver {
     }
     scanner.close();
   }
-
 }

@@ -14,16 +14,34 @@ public class ImageScaler {
         BufferedImage img = null; // Menginisialisasi variabel BufferedImage untuk gambar input.
         BufferedImage doubleImg = null; // Menginisialisasi BufferedImage untuk gambar hasil penskalaan.
         BufferedImage imgTemp = null; // Menginisialisasi BufferedImage untuk pemrosesan gambar sementara.
-        System.out.print("Masukkan nama file gambar (berserta formatnya): ");
-        fileName = sc.nextLine();
-        imgPath = imagePath(fileName);
-        File imageFile = new File(imgPath); // Membuat objek File untuk gambar input.
+        File imageFile = null;
+        while (imageFile == null) {
+            System.out.print("Masukkan nama file gambar (berserta formatnya): ");
+            fileName = sc.nextLine();
+            imgPath = imagePath(fileName);
+            imageFile = new File(imgPath); // Membuat objek File untuk gambar input.
+            if (!imageFile.exists()) {
+                System.out.println("File tidak ditemukan.");
+                imageFile = null;
+            }
+        }
 
         try {
             img = ImageIO.read(imageFile);
             int w = img.getWidth(), h = img.getHeight();
-            System.out.print("Masukkan faktor scaling: ");
-            float factor = sc.nextFloat();
+            float factor = 0;
+            while (factor <= 0) {
+                System.out.print("Masukkan faktor scaling: ");
+                try {
+                    factor = sc.nextFloat();
+                    if (factor <= 0) {
+                        System.out.println("Faktor scaling harus lebih besar dari 0.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Input tidak valid");
+                    sc.nextLine();
+                }
+            }
             System.out.println("scaling the image..\n");
 
             // Membuat BufferedImage baru untuk gambar hasil penskalaan menggunakan faktor
@@ -93,7 +111,7 @@ public class ImageScaler {
                         mRow++;
                     }
 
-                    //Melakukan interpolasi nilai piksel dan mengaplikasikannya ke gambar yang
+                    // Melakukan interpolasi nilai piksel dan mengaplikasikannya ke gambar yang
                     // telah diubah skala.
                     MatrixADT mFunc = BicubicSI.matrixY(mBic);
 
@@ -125,16 +143,24 @@ public class ImageScaler {
             }
         } catch (IOException e) {
             System.out.println("Image tidak ditemukan");
+            return;
         }
 
-        System.out.print("Masukkan Nama File Output (berserta formatnya): ");
-        sc.nextLine();
-        fileOuput = sc.nextLine();
+        while (true) {
+            sc.nextLine();
+            System.out.print("Masukkan Nama File Output (berserta formatnya): ");
+            fileOuput = sc.nextLine();
+            if (fileOuput.isEmpty()) {
+                System.out.println("Nama file tidak boleh kosong.");
+            } else {
+                break;
+            }
+        }
         printImage(fileOuput, doubleImg);
         System.out.println("\nImage Scaling - done");
     }
 
-    //FUNCTION
+    // FUNCTION
     public static String imagePath(String fileName) {
         String filePath, currentPath;
         currentPath = System.getProperty("user.dir");

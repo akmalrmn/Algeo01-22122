@@ -70,9 +70,21 @@ public class MatrixADT {
     public MatrixADT matriksSPL() {
         // Membaca size matrix
         System.out.print("\nJumlah baris: ");
-        this.numRows = scanElmt.nextInt();
+        try {
+            this.numRows = scanElmt.nextInt();
+        } catch (Exception e) {
+            System.out.println("Input tidak valid");
+            scanElmt.nextLine();
+            return matriksSPL();
+        }
         System.out.print("Jumlah kolom: ");
-        this.numCols = scanElmt.nextInt();
+        try {
+            this.numCols = scanElmt.nextInt();
+        } catch (Exception e) {
+            System.out.println("Input tidak valid");
+            scanElmt.nextLine();
+            return matriksSPL();
+        }
 
         // membuat matrix
         MatrixADT mOut = new MatrixADT(this.numRows, this.numCols);
@@ -81,7 +93,13 @@ public class MatrixADT {
         System.out.println("\nMasukkan matrix:");
         for (int i = 0; i < this.numRows; i++) {
             for (int j = 0; j < this.numCols; j++) {
-                mOut.data[i][j] = scanElmt.nextDouble();
+                try {
+                    mOut.data[i][j] = scanElmt.nextDouble();
+                } catch (Exception e) {
+                    System.out.println("Input tidak valid");
+                    scanElmt.nextLine();
+                    return matriksSPL();
+                }
             }
         }
         return mOut;
@@ -96,8 +114,13 @@ public class MatrixADT {
         this.numCols = col;
         for (i = 0; i < row; i++) {
             for (j = 0; j < col; j++) {
-                elmt = scanElmt.nextDouble();
-                this.data[i][j] = elmt;
+                try {
+                    elmt = scanElmt.nextDouble();
+                    this.data[i][j] = elmt;
+                } catch (Exception e) {
+                    System.out.println("Input tidak valid");
+                    scanElmt.nextLine();
+                }
             }
         }
     }
@@ -111,8 +134,13 @@ public class MatrixADT {
         this.numCols = 4;
         for (i = 0; i < 4; i++) {
             for (j = 0; j < 4; j++) {
-                elmt = scanElmt.nextDouble();
-                this.data[i][j] = elmt;
+                try {
+                    elmt = scanElmt.nextDouble();
+                    this.data[i][j] = elmt;
+                } catch (Exception e) {
+                    System.out.println("Input tidak valid");
+                    scanElmt.nextLine();
+                }
             }
         }
     }

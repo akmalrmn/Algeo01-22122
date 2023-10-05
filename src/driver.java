@@ -225,9 +225,8 @@ public class driver {
 
       } else if (masukan == 7) {
         System.out.println();
-        ImageScaler.Scaling();
-        // kembali ke menu awal
         scanner.nextLine();
+        ImageScaler.Scaling();
         Thread.sleep(1000);
         System.out.println("\nTekan enter untuk kembali ke menu awal");
         scanner.nextLine();

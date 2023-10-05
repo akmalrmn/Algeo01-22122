@@ -1,6 +1,5 @@
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,61 +7,9 @@ import java.util.Scanner;
 import Matrix.MatrixADT;
 
 public class SPL_Balikan {
-    private static String fileName = "";
-
-    static MatrixADT inputFile(String namaFile){
-
-    int numRows = 0;
-    int numCols = 0;
-
-    try {
-      File myObj = new File("./test/" + namaFile);
-      Scanner sizeFinder = new Scanner(myObj);
-      Scanner myReader = new Scanner(myObj);
-
-      String dataTemp = sizeFinder.nextLine();
-
-      for (int j = 0; j < dataTemp.length(); j++){
-        if (dataTemp.charAt(j) == ' '){
-            numCols++;
-        }
-      }
-      numCols++;
-
-      while(sizeFinder.hasNextLine()){
-        sizeFinder.nextLine();
-        numRows++;
-      }
-      numRows++;
-
-      sizeFinder.close();
-
-      MatrixADT matrix = new MatrixADT(numRows, numCols);
-      
-      int i = 0;
-      while (myReader.hasNextLine()) {
-        String[] line = myReader.nextLine().trim().split(" ");
-
-        for (int j = 0; j < numCols; j++) {
-            // System.out.println(Double.parseDouble(line[j]));
-            matrix.setElmt(i, j, Double.parseDouble(line[j]));
-        }
-        i++;
-      }
-      myReader.close();
-
-      return matrix;
-
-    } catch (FileNotFoundException e) {
-      MatrixADT matrix = new MatrixADT(0, 0);
-
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-
-      return matrix;
-    }
-    
-  }
+    static Scanner scanner = new Scanner(System.in);
+    static String fileName = "Solusi_SPL_Inverse_Problem";
+    static int count = 0;
 
     static void swap_row(MatrixADT matrix, int i, int j) {
         for (int k = 0; k < matrix.getCols(); k++) {
@@ -133,7 +80,7 @@ public class SPL_Balikan {
             for (int j = k + 1; j <= matrix.getLastIdxCol(); j++){
               double temp = matrix.getElmt(i, j) - matrix.getElmt(k,j) * divider;
 
-              if (temp < 1e-15){
+              if (Math.abs(temp) < 1e-15){
                 temp = 0;
               }
 
@@ -152,6 +99,11 @@ public class SPL_Balikan {
       }
     
     public static void findSolution(MatrixADT matrix){
+        if (matrix.getRows() != matrix.getCols() -1){
+          System.out.println("SPL tidak bisa dicari dengan metode Inverse.");
+          return;
+        } 
+
         MatrixADT matrixIdentity = new MatrixADT(matrix.getRows(), matrix.getCols() - 1);
         matrixIdentity.createIdentity();
 
@@ -178,25 +130,25 @@ public class SPL_Balikan {
                 System.out.printf("Nilai x%d = %.2f\n", i + 1, answer.getElmt(i, 0));
             }
 
-            Scanner scanner = new Scanner(System.in);
             System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
             int input = scanner.nextInt();
+
+            while (input != 1 && input != 2){
+              System.out.print("Input tidak valid\n");
+              input = scanner.nextInt();
+            }
 
             if (input == 1){
                 outputFile(komponenB, answer);
             }
 
-            scanner.close();
         }
     }
 
     static void outputFile(MatrixADT komponenB, MatrixADT answer){
-        if (fileName.length() == 0){
-            fileName = "Solusi_SPL_Inverse_InputKeyboard.txt";
-        }
 
         try {
-            File myObj = new File("./test/output/Solusi_SPL_Inverse_" + fileName);
+            File myObj = new File("./test/output/" + fileName + count + ".txt");
             if (myObj.createNewFile()) {
               System.out.println("File created: " + myObj.getName());
             } else {
@@ -208,7 +160,7 @@ public class SPL_Balikan {
         }
     
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/Solusi_SPL_Inverse_" + fileName));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/" + fileName + count++ + ".txt"));
 
             bw.write("Solusi dari SPL tersebut:\n");
             for (int i = 0; i < komponenB.getRows(); i++){
@@ -222,59 +174,4 @@ public class SPL_Balikan {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Apakah ingin memasukkan input dari file?\n1. Yes\n2. No");
-
-        int input = scanner.nextInt();
-        
-        if (input == 1){
-            System.out.println("Masukkan nama file: ");
-            fileName = scanner.next();
-            MatrixADT matrix = inputFile(fileName);
-            System.out.println();
-
-            if (matrix.getRows() != matrix.getCols() -1){
-                System.out.println("SPL tidak bisa dicari dengan metode Inverse.");
-            } else {
-                findSolution(matrix);
-            }
-
-        } else if (input == 2)  {
-            System.out.println("Masukkan nilai m: ");
-            int m = scanner.nextInt();
-            System.out.println("Masukkan nilai n: ");
-            int n = scanner.nextInt();
-
-            System.out.print("Masukkan matriks: \n");
-            MatrixADT matrix = new MatrixADT(m, n);
-            matrix.readMatrix(m,n);
-
-            if (m != n -1){
-                System.out.println("SPL tidak bisa dicari dengan metode Inverse.");
-            } else {
-                findSolution(matrix);
-            }
-        }
-
-        scanner.close();
-        fileName = "";
-
-        // Scanner scanner = new Scanner(System.in);
-        // int m, n;
-        // m = scanner.nextInt();
-        // n = scanner.nextInt();
-
-        // Matrix matrix = new Matrix(m, n);
-        // matrix.readMatrix(scanner);
-
-        // if (m != n - 1){
-        //     System.out.println("SPL tidak bisa dicari dengan metode Inverse.");
-        // } else {
-        //     findSolution(matrix);
-        // }
-
-        // scanner.close();
-    }
-}
+  }

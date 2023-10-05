@@ -8,6 +8,7 @@ import java.util.Scanner;
 import Matrix.MatrixADT;
 
 public class Interpolasi_Polinom {
+    static Scanner scanner = new Scanner(System.in);
 
     private static String fileName = "";
 
@@ -139,15 +140,17 @@ public class Interpolasi_Polinom {
 
         System.out.printf(", f(%f) = %f.", x, temp);
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
         int input = scanner.nextInt();
+
+        while (input != 1 && input != 2){
+            System.out.print("Input tidak valid\n");
+            input = scanner.nextInt();
+        }
 
         if (input == 1){
             outputFile(matrix, temp, x);
         }
-
-        scanner.close();
     }
     
     static MatrixADT inputFile(String namaFile){
@@ -294,7 +297,6 @@ public class Interpolasi_Polinom {
         }
     }
     public static void main(String[] args){
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Apakah ingin memasukkan input dari file?\n1. Yes\n2. No");
 
@@ -317,7 +319,7 @@ public class Interpolasi_Polinom {
             findAnswer(matrix, inputNum);
         } else if (input == 2)  {
             MatrixADT matrixPoint;
-            System.out.println("Masukkan nilai N: ");
+            System.out.println("Masukkan nilai N (derajat maksimal polinom): ");
             int n = scanner.nextInt();
 
             matrixPoint = new MatrixADT(n  + 1, 2);
@@ -334,29 +336,7 @@ public class Interpolasi_Polinom {
             double x = scanner.nextDouble();
 
             findAnswer(matrix, x);
-            scanner.close();
         }
-
-        scanner.close();
         fileName = "";
-
-        // Scanner scanner = new Scanner(System.in);
-        // Matrix matrixPoint;
-        // int n = scanner.nextInt();
-
-        // matrixPoint = new Matrix(n  + 1, 2);
-        // matrixPoint.readMatrix(scanner);
-
-        // Matrix matrix = new Matrix(n + 1, n + 2);
-
-        // createAugmented(matrix, matrixPoint);
-
-        // performElimination(matrix);
-        // backSubstitute(matrix);
-
-        // double x = scanner.nextDouble();
-
-        // findAnswer(matrix, x);
-        // scanner.close();
     }
 }

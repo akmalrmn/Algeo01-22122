@@ -153,7 +153,7 @@ public class driver {
           case 2:
           matriks = text.pilihan1();
             Thread.sleep(1000);
-            Balikan_GaussJ.inversGaussJ(matriks);
+            Balikan_GaussJ.printInversGJ(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);

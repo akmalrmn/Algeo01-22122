@@ -36,23 +36,14 @@ public class Balikan_Adjoin {
       }
 
       // adjoin
-      int indeks = 1;
-      while (indeks < n) {
-        matrixhasil.data[indeks - 1][indeks - 1] = matrixkofaktor.data[indeks - 1][indeks - 1];
-        matrixhasil.data[0][indeks] = matrixkofaktor.data[indeks][0];
-        matrixhasil.data[indeks][0] = matrixkofaktor.data[0][indeks];
-        matrixhasil.data[n - 1][indeks] = matrixkofaktor.data[indeks][n - 1];
-        matrixhasil.data[indeks][n - 1] = matrixkofaktor.data[n - 1][indeks];
-        indeks += 1;
-      }
+      for (int i = 0; i < matrixkofaktor.getCols(); i++) {
+        for (int j = 0; j < matrixkofaktor.getRows(); j++) {
+            matrixhasil.data[j][i] = matrixkofaktor.data[i][j];
+        }
+    }
     }
     // print hasil
     System.out.println();
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        System.out.print(matrixhasil.data[i][j] + " ");
-      }
-      System.out.println();
-    }
+    matrixhasil.displayMatrix();
   }
 }

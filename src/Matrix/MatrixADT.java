@@ -53,7 +53,7 @@ public class MatrixADT {
     public void displayMatrix() {
         for (int i = 0; i < this.numRows; i++) {
             for (int j = 0; j < this.numCols; j++) {
-                System.out.printf("%.2f", data[i][j]);
+                System.out.print( data[i][j]);
 
                 if (j != this.numCols - 1) {
                     System.out.print(" ");

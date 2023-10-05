@@ -340,7 +340,6 @@ public class Interpolasi_Polinom {
         scanner.close();
         fileName = "";
 
-
         // Scanner scanner = new Scanner(System.in);
         // Matrix matrixPoint;
         // int n = scanner.nextInt();

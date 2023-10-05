@@ -19,9 +19,13 @@ public class text {
   }
 
   public static void matrixToFile(MatrixADT matriks) {
-    scanner.nextLine();
-    System.out.print("Masukkan nama file: ");
-    String namaFile = scanner.nextLine();
-    Parser.createFile(matriks, namaFile);
+    System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
+    int input = scanner.nextInt();
+    if (input == 1) {
+      scanner.nextLine();
+      System.out.print("Masukkan nama file: ");
+      String namaFile = scanner.nextLine();
+      Parser.createFile(matriks, namaFile);
+    }
   }
 }

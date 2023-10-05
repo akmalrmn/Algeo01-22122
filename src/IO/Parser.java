@@ -87,9 +87,9 @@ public class Parser {
             for (int i = 0; i < matrix.getRows(); i++) {
                 for (int j = 0; j < matrix.getCols(); j++) {
                     if (j == matrix.getLastIdxCol()) {
-                        bw.write(matrix.getElmt(i, j) + "");
+                        bw.write(String.format("%.7f", matrix.getElmt(i, j)) + "");
                     } else {
-                        bw.write(matrix.getElmt(i, j) + " ");
+                        bw.write(String.format("%.7f", matrix.getElmt(i, j)) + " ");
                     }
                 }
                 bw.newLine();

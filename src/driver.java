@@ -23,7 +23,14 @@ public class driver {
       // input pilihan
       Thread.sleep(1000);
       System.out.print("Masukkan nomor program yang ingin dijalankan: ");
-      int masukan = scanner.nextInt();
+      int masukan;
+      try {
+        masukan = scanner.nextInt();
+      } catch (Exception e) {
+        System.out.println("Input tidak valid");
+        scanner.nextLine();
+        continue;
+      }
       Thread.sleep(1000);
 
       // masuk ke pilihan
@@ -43,9 +50,15 @@ public class driver {
 
         // input pilihan
         System.out.print("Masukkan nomor program yang ingin dijalankan: ");
-        int masukan2 = scanner.nextInt();
-        scanner.nextLine();
-
+        int masukan2;
+        try {
+          masukan2 = scanner.nextInt();
+          scanner.nextLine();
+        } catch (Exception e) {
+          System.out.println("Input tidak valid");
+          scanner.nextLine();
+          continue;
+        }
         // masuk ke pilihan
         switch (masukan2) {
           case 1:
@@ -102,8 +115,15 @@ public class driver {
 
         // input pilihan
         System.out.print("Masukkan nomor program yang ingin dijalankan: ");
-        int masukan2 = scanner.nextInt();
-        scanner.nextLine();
+        int masukan2;
+        try {
+          masukan2 = scanner.nextInt();
+          scanner.nextLine();
+        } catch (Exception e) {
+          System.out.println("Input tidak valid");
+          scanner.nextLine();
+          continue;
+        }
 
         // masuk ke pilihan
         switch (masukan2) {
@@ -138,15 +158,22 @@ public class driver {
 
         // input pilihan
         System.out.print("Masukkan nomor program yang ingin dijalankan: ");
-        int masukan2 = scanner.nextInt();
-        scanner.nextLine();
+        int masukan2;
+        try {
+          masukan2 = scanner.nextInt();
+          scanner.nextLine();
+        } catch (Exception e) {
+          System.out.println("Input tidak valid");
+          scanner.nextLine();
+          continue;
+        }
 
         // masuk ke pilihan
         switch (masukan2) {
           case 1:
           matriks = text.pilihan1();
             Thread.sleep(1000);
-            Balikan_Adjoin.adjoin(matriks);
+            matriks = Balikan_Adjoin.adjoin(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
@@ -156,10 +183,11 @@ public class driver {
           case 2:
           matriks = text.pilihan1();
             Thread.sleep(1000);
-            Balikan_GaussJ.printInversGJ(matriks);
+            matriks = Balikan_GaussJ.printInversGJ(matriks);
 
             // kembali ke menu awal
             Thread.sleep(1000);
+            text.matrixToFile(matriks);
             System.out.println("\nTekan enter untuk kembali ke menu awal");
             break;
           default:
@@ -174,21 +202,27 @@ public class driver {
 
         while (ulang.equals("y")) {
           System.out.print("\nMasukkan nilai yang ingin dicari: \nx: ");
-          double x = scanner.nextDouble();
-          System.out.print("y: ");
-          double y = scanner.nextDouble();
+          double x, y;
+          try {
+            x = scanner.nextDouble();
+            y = scanner.nextDouble();
+            scanner.nextLine();
+          } catch (Exception e) {
+            System.out.println("Input tidak valid");
+            scanner.nextLine();
+            continue;
+          }
           System.out.println();
 
           double hasil = BicubicSI.bicubic(matriks, x, y);
           System.out.println("\nNilai dari f(" + x + ", " + y + ") adalah: " + hasil);
           // kembali ke menu awal
-          scanner.nextLine();
           Thread.sleep(1000);
           System.out.println("\nApakah ingin mencari nilai lain? (y/n)");
           ulang = scanner.nextLine();
         }
       } else if (masukan == 6) {
-        
+
       } else if (masukan == 7) {
         System.out.println();
         ImageScaler.Scaling();

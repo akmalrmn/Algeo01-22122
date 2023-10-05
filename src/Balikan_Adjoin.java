@@ -1,7 +1,7 @@
 import Matrix.MatrixADT;
 
 public class Balikan_Adjoin {
-  public static void adjoin(MatrixADT matrix) {
+  public static MatrixADT adjoin(MatrixADT matrix) {
 
     int n = matrix.getCols();
     MatrixADT submatrix = new MatrixADT(n - 1, n - 1);
@@ -38,12 +38,13 @@ public class Balikan_Adjoin {
       // adjoin
       for (int i = 0; i < matrixkofaktor.getCols(); i++) {
         for (int j = 0; j < matrixkofaktor.getRows(); j++) {
-            matrixhasil.data[j][i] = matrixkofaktor.data[i][j];
+          matrixhasil.data[j][i] = matrixkofaktor.data[i][j];
         }
-    }
+      }
     }
     // print hasil
     System.out.println();
     matrixhasil.displayMatrix();
+    return matrixhasil;
   }
 }

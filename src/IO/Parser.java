@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 
 public class Parser {
+    public static Scanner scan = new Scanner(System.in);
+
     public static MatrixADT FiletoMatrix() {
         int numRows = 0;
         int numCols = 0;
@@ -102,4 +104,34 @@ public class Parser {
         }
     }
 
+    public static void outputFileMatrix(MatrixADT komponenB, MatrixADT answer) {
+        System.out.print("\nMasukkan nama file output (berserta formatnya): ");
+        String fileName = scan.nextLine();
+        try {
+            File myObj = new File("./test/output/" + fileName);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/" + fileName));
+
+            bw.write("Solusi dari SPL tersebut:\n");
+            for (int i = 0; i < komponenB.getRows(); i++) {
+                bw.write(String.format("Nilai x%d = %.2f\n", i + 1, answer.getElmt(i, 0)));
+            }
+
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 }

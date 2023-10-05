@@ -1,37 +1,75 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import Matrix.MatrixADT;
 
 public class Determinan_EK {
-    public static double determinant(MatrixADT matrix) {
-        if (matrix.getCols() != matrix.getRows()) {
-            System.out.println("Matriks bukan matriks persegi");
-            return 0;
-        } else {
-            int n = matrix.getCols();
-            double det = 0;
-            if (n == 1) {
-                det = matrix.data[0][0];
-            } else if (n == 2) {
-                det = matrix.data[0][0] * matrix.data[1][1] - matrix.data[0][1] * matrix.data[1][0];
-            } else {
-                MatrixADT submatrix = new MatrixADT(n - 1, n - 1);
-                for (int j = 0; j < n; j++) {
-                    for (int i = 1; i < n; i++) {
-                        for (int k = 0; k < n; k++) {
-                            // mengisi submatrix dengan elemen matrix yang tidak berada di baris dan kolom
-                            // utama
-                            if (k < j) {
-                                submatrix.data[i - 1][k] = matrix.data[i][k];
-                            } else if (k > j) {
-                                submatrix.data[i - 1][k - 1] = matrix.data[i][k];
-                            }
-                        }
-                    }
-                    // setiap elemen dibagi dengan determinan submatrix dan dikalikan dengan (-1)^j
-                    det += Math.pow(-1, j) * matrix.data[0][j] * determinant(submatrix);
-                }
-            }
+    public static Scanner scan = new Scanner(System.in);
 
-            return det;
+    public static void main(MatrixADT m) {
+        double det = detCofactor(m);
+        System.out.printf("Determinan dari matriks tersebut = %.6f\n", det);
+
+        System.out.println("\nApakah ingin menyimpan solusi dalam file?\n1. Yes\n2. No");
+        int input = scan.nextInt();
+
+        while (input != 1 && input != 2) {
+            System.out.print("Input tidak valid\n");
+            input = scan.nextInt();
+        }
+
+        if (input == 1) {
+            scan.nextLine();
+            System.out.print("Masukkan nama file: ");
+            String filename = scan.nextLine();
+            outputFile(det, filename);
+        }
+        System.out.println("Determinan dari matriks tersebut = " + det);
+
+    }
+
+    public static double detCofactor(MatrixADT M) { // Mengembalikan nilai determinan dengan metode kofaktor
+        int sign;
+        int m;
+        double det;
+        MatrixADT mTemp = new MatrixADT(M.numRows - 1, M.numCols - 1);
+
+        sign = 1;
+        det = 0;
+        if (M.numRows != 1) {
+            for (m = 0; m < M.numRows; m++) {
+                mTemp = MatrixADT.minorMatrix(M, 0, m);
+                det += (detCofactor(mTemp) * M.data[0][m] * sign);
+                sign *= (-1);
+            }
+        } else {
+            det = M.data[0][0];
+        }
+        return det;
+    }
+
+    static void outputFile(Double answer, String fileName) {
+        try {
+            File myObj = new File("./test/output/" + fileName + ".txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter fw = new FileWriter("./test/output/" + fileName + ".txt");
+            fw.write("Determinan dari matriks tersebut = " + answer + "\n");
+            fw.close();
+            System.out.println("Content written to file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 }

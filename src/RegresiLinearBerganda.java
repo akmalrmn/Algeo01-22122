@@ -3,8 +3,8 @@ import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 
 public class RegresiLinearBerganda {
+    public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         DecimalFormat df = new DecimalFormat("#.#######");
         DecimalFormat dfAns= new DecimalFormat("#.##");
 

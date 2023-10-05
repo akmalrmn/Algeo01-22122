@@ -7,7 +7,7 @@ public class Balikan_Adjoin {
     MatrixADT submatrix = new MatrixADT(n - 1, n - 1);
     MatrixADT matrixkofaktor = new MatrixADT(n, n);
     MatrixADT matrixhasil = new MatrixADT(n, n);
-    double det = Determinan_EK.determinant(matrix);
+    double det = Determinan_EK.detCofactor(matrix);
 
     if (det != 0) {
       // kofaktor
@@ -31,7 +31,7 @@ public class Balikan_Adjoin {
           // setiap elemen dibagi dengan det (determinan)
           int a = barisutama + kolomutama;
           matrixkofaktor.data[barisutama][kolomutama] = (double) (Math.pow(-1, a)
-              * Determinan_EK.determinant(submatrix) * 1 / det);
+              * Determinan_EK.detCofactor(submatrix) * 1 / det);
         }
       }
 

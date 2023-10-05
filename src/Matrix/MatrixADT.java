@@ -265,4 +265,29 @@ public class MatrixADT {
         }
         return matrixAns;
     }
+    public static MatrixADT minorMatrix(MatrixADT m1, int i, int j) { // Mengembalikan matriks minor
+        MatrixADT mOut = new MatrixADT(m1.numRows - 1, m1.numCols - 1);
+        int m, n;
+        mOut.numRows = m1.numRows - 1;
+        mOut.numCols = m1.numCols - 1;
+        for (m = 0; m <= mOut.numRows; m++) {
+            for (n = 0; n <= mOut.numCols; n++) {
+                if (m < i) {
+                    if (n > j) {
+                        mOut.data[m][n-1] = m1.data[m][n];
+                    } else if (n < j) {
+                        mOut.data[m][n] = m1.data[m][n];
+                    }
+                }
+                if (m > i) {
+                    if (n > j) {
+                        mOut.data[m-1][n-1] = m1.data[m][n];
+                    } else if (n < j) {
+                        mOut.data[m-1][n] = m1.data[m][n];
+                    }
+                }
+            }
+        }
+        return mOut;
+    }
 }

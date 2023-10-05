@@ -139,7 +139,8 @@ public class driver {
           case 2:
             matriks = text.pilihan1();
             Thread.sleep(1000);
-            System.out.println("\nDeterminan: " + Determinan_EK.determinant(matriks));
+            Determinan_EK.main(matriks);
+            
 
             // kembali ke menu awal
             Thread.sleep(1000);
@@ -205,6 +206,7 @@ public class driver {
           double x, y;
           try {
             x = scanner.nextDouble();
+            System.out.print("\ny: ");
             y = scanner.nextDouble();
             scanner.nextLine();
           } catch (Exception e) {

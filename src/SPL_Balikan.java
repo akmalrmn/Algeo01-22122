@@ -1,9 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
-
+import IO.Parser;
 import Matrix.MatrixADT;
 
 public class SPL_Balikan {
@@ -160,39 +156,9 @@ public class SPL_Balikan {
       }
 
       if (input == 1) {
-        outputFile(komponenB, answer);
+        Parser.outputFileMatrix(komponenB, answer);
       }
 
-    }
-  }
-
-  static void outputFile(MatrixADT komponenB, MatrixADT answer) {
-
-    try {
-      File myObj = new File("./test/output/" + fileName + count + ".txt");
-      if (myObj.createNewFile()) {
-        System.out.println("File created: " + myObj.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-
-    try {
-      BufferedWriter bw = new BufferedWriter(new FileWriter("./test/output/" + fileName + count++ + ".txt"));
-
-      bw.write("Solusi dari SPL tersebut:\n");
-      for (int i = 0; i < komponenB.getRows(); i++) {
-        bw.write(String.format("Nilai x%d = %.2f\n", i + 1, answer.getElmt(i, 0)));
-      }
-
-      bw.flush();
-      bw.close();
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
     }
   }
 }

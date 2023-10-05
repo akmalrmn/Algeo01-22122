@@ -1,4 +1,5 @@
 import Matrix.MatrixADT;
+import IO.Parser;
 
 public class SPL_Cramer {
   public static void cramer(MatrixADT matrix) {
@@ -13,7 +14,7 @@ public class SPL_Cramer {
         submatrix.data[i][j] = matrix.data[i][j];
       }
     }
-    double det = Determinan_EK.determinant(submatrix);
+    double det = Determinan_EK.detCofactor(submatrix);
 
     // menghitung determinan dari submatrix
     if (det != 0) {
@@ -28,13 +29,14 @@ public class SPL_Cramer {
         for (int i = 0; i < jmlhbaris; i++) {
           submatrix.data[i][j] = matrix.data[i][jmlhkolom - 1];
         }
-        hasil[j] = Determinan_EK.determinant(submatrix) / det;
+        hasil[j] = Determinan_EK.detCofactor(submatrix) / det;
       }
       // print hasil
       System.out.println();
       for (int i = 1; i < jmlhkolom; i++) {
         System.out.println("X" + i + ": " + hasil[i - 1]);
       }
+      Parser.outputFileMatrix(matrix, submatrix);
     } else {
       System.out.println("\nDeterminan dari matriks adalah 0, tidak bisa menggunakan Cramer untuk menemukan solusi.");
     }

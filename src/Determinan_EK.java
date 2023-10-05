@@ -29,7 +29,7 @@ public class Determinan_EK {
 
     }
 
-    public static double detCofactor(MatrixADT M) { // Mengembalikan nilai determinan dengan metode kofaktor
+    public static double detCofactor(MatrixADT M) { 
         int sign;
         int m;
         double det;
